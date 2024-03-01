@@ -25,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "npx react-scripts test --coverage --watchAll"
   },
   "eslintConfig": {
     "extends": [
@@ -44,5 +45,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/components/**/*.tsx",
+      "src/pages/**/*.tsx",
+      "src/hooks/**/*.{ts,tsx}",
+      "src/App.tsx"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": -10
+      }
+    }
   }
 }
