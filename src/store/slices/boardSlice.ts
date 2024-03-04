@@ -3,7 +3,7 @@ import { BoardInterface } from '../types';
 import * as reducers from './reducers/reducers';
 import * as workspaceReducers from './reducers/workspaceReducer';
 
-const initialState: BoardInterface = {
+export const initialState: BoardInterface = {
   workspaces: [
     {
       id: '1',
