@@ -3,6 +3,7 @@ import reducer from '../boardSlice';
 import {
   createWorkspace,
   deleteWorkspace,
+  setActiveWorkspace,
   updateWorkspaceName,
 } from '../actions';
 
@@ -98,5 +99,33 @@ describe('createWorkspace', () => {
     );
 
     expect(store.getState().workspaces.length).toBe(3);
+  });
+
+  describe('setActiveWorkspace', () => {
+    test('should set active workspace', () => {
+      const store = configureStore({
+        reducer,
+        preloadedState: {
+          workspaces: [
+            {
+              id: '1',
+              name: 'Test.',
+              tasksGroups: [],
+            },
+            {
+              id: '2',
+              name: 'Jira Inc.',
+              tasksGroups: [],
+            },
+          ],
+          activeItem: '',
+          activeWorkspace: '2',
+        },
+      });
+
+      store.dispatch(setActiveWorkspace('1'));
+
+      expect(store.getState().activeWorkspace).toBe('1');
+    });
   });
 });

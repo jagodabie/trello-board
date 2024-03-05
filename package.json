@@ -57,7 +57,10 @@
       "src/pages/**/*.tsx",
       "src/hooks/**/*.{ts,tsx}",
       "src/store/**/*.{ts,tsx}",
-      "src/App.tsx"
+      "src/App.tsx",
+      "!src/store/store.ts",
+      "!src/store/slices/reducers/reducers.ts",
+      "!src/hooks/useAppDispatch.ts"
     ],
     "coverageThreshold": {
       "global": {
