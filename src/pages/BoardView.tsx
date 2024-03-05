@@ -1,4 +1,5 @@
 import { BoardHeader, BoardMain, Heading, StyledBoardView } from '.';
+import { Input } from '../components/UI/Input/Input';
 import { useAppSelector } from '../hooks/useAppDispatch';
 
 export const BoardView = ({ id }: { id: string }) => {
@@ -9,6 +10,11 @@ export const BoardView = ({ id }: { id: string }) => {
   return (
     <StyledBoardView>
       <BoardHeader>
+        <Input
+          name='tasks-list'
+          placeholder='Add list'
+          defaultValue={workspace?.name || ''}
+        />
         <Heading>{workspace?.name || ''}</Heading>
       </BoardHeader>
       <BoardMain>Body</BoardMain>
