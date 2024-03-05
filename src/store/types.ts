@@ -19,6 +19,6 @@ export interface WorkspaceInterface {
 }
 export interface BoardInterface {
   workspaces: WorkspaceInterface[];
-  workspaceEditing: string;
-  itemEdited: string;
+  activeWorkspace: string;
+  activeItem: string;
 }

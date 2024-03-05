@@ -13,7 +13,7 @@ export const updateWorkspaceName = (
   action: PayloadAction<string>
 ) => {
   const workspaceFound = state.workspaces.find(
-    (workspace) => workspace.id === state.workspaceEditing
+    (workspace) => workspace.id === state.activeWorkspace
   );
   if (workspaceFound) {
     const updatedWorkspace = {
@@ -22,7 +22,7 @@ export const updateWorkspaceName = (
     };
 
     state.workspaces = [...state.workspaces].map((workspace) => {
-      return workspace.id === state.workspaceEditing
+      return workspace.id === state.activeWorkspace
         ? updatedWorkspace
         : workspace;
     });
@@ -38,9 +38,9 @@ export const deleteWorkspace = (
   );
 };
 
-export const setWorkspaceEditing = (
+export const setActiveWorkspace = (
   state: BoardInterface,
   action: PayloadAction<string>
 ) => {
-  state.workspaceEditing = action.payload;
+  state.activeWorkspace = action.payload;
 };

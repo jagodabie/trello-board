@@ -18,7 +18,7 @@ export const setTasksGroupOrder = (
   action: PayloadAction<TasksGroupInterface[]>
 ) => {
   state.workspaces = state.workspaces.map((workspace) => {
-    return workspace.id === state.workspaceEditing
+    return workspace.id === state.activeWorkspace
       ? { ...workspace, tasksGroups: action.payload }
       : workspace;
   });
@@ -32,7 +32,7 @@ export const setTasks = (
   }>
 ) => {
   const foundWorkspace = state.workspaces.find(
-    (workspace) => workspace.id === state.workspaceEditing
+    (workspace) => workspace.id === state.activeWorkspace
   );
 
   if (foundWorkspace) {
@@ -59,7 +59,7 @@ export const setTasks = (
         tasksGroups: updatedTasksGroups,
       };
       state.workspaces = state.workspaces.map((workspace) => {
-        return workspace.id === state.workspaceEditing
+        return workspace.id === state.activeWorkspace
           ? updatedWorkspace
           : workspace;
       });
@@ -72,7 +72,7 @@ export const createWorkspaceTasksGroup = (
   action: PayloadAction<TasksGroupInterface>
 ) => {
   const workspaceFound = state.workspaces.find(
-    (workspace) => workspace.id === state.workspaceEditing
+    (workspace) => workspace.id === state.activeWorkspace
   );
   if (workspaceFound) {
     const updatedWorkspace = {
@@ -80,7 +80,7 @@ export const createWorkspaceTasksGroup = (
       tasksGroups: [...workspaceFound.tasksGroups, action.payload],
     };
     state.workspaces = [...state.workspaces].map((workspace) => {
-      return workspace.id === state.workspaceEditing
+      return workspace.id === state.activeWorkspace
         ? updatedWorkspace
         : workspace;
     });
@@ -92,10 +92,10 @@ export const updateTasksGroupName = (
   action: PayloadAction<string>
 ) => {
   const workspaceFound = state.workspaces.find(
-    (workspace) => workspace.id === state.workspaceEditing
+    (workspace) => workspace.id === state.activeWorkspace
   );
   const tasksGroupFound = workspaceFound?.tasksGroups.find(
-    (tasksGroup) => tasksGroup.id === state.itemEdited
+    (tasksGroup) => tasksGroup.id === state.activeItem
   );
 
   if (workspaceFound && tasksGroupFound) {
@@ -105,7 +105,7 @@ export const updateTasksGroupName = (
     };
 
     const updatedTasksGroups = workspaceFound.tasksGroups.map((tasksGroup) => {
-      return tasksGroup.id === state.itemEdited
+      return tasksGroup.id === state.activeItem
         ? updatedTasksGroup
         : tasksGroup;
     });
@@ -116,7 +116,7 @@ export const updateTasksGroupName = (
     };
 
     state.workspaces = [...state.workspaces].map((workspace) => {
-      return workspace.id === state.workspaceEditing
+      return workspace.id === state.activeWorkspace
         ? updatedWorkspace
         : workspace;
     });
@@ -128,25 +128,25 @@ export const deleteWorkspaceTasksGroup = (
   action: PayloadAction<string>
 ) => {
   const workspaceFound = state.workspaces.find(
-    (workspace) => workspace.id === state.workspaceEditing
+    (workspace) => workspace.id === state.activeWorkspace
   );
   if (workspaceFound) {
     const updatedWorkspace = workspaceFound.tasksGroups.filter(
       (tasksGroup) => tasksGroup.id !== action.payload
     );
     state.workspaces = [...state.workspaces].map((workspace) => {
-      return workspace.id === state.workspaceEditing
+      return workspace.id === state.activeWorkspace
         ? { ...workspace, tasksGroups: updatedWorkspace }
         : workspace;
     });
   }
 };
 
-export const setItemEdited = (
+export const setActiveItem = (
   state: BoardInterface,
   action: PayloadAction<string>
 ) => {
-  state.itemEdited = action.payload;
+  state.activeItem = action.payload;
 };
 export const saveEditedWorkspace = (
   state: BoardInterface,
@@ -162,7 +162,7 @@ export const setDoneTasks = (
   action: PayloadAction<{ groupId: string }>
 ) => {
   const workspaceFound = state.workspaces.find(
-    (workspace) => workspace.id === state.workspaceEditing
+    (workspace) => workspace.id === state.activeWorkspace
   );
   const tasksGroupFound = workspaceFound?.tasksGroups.find(
     (tasksGroup) => tasksGroup.id === action.payload.groupId
@@ -183,7 +183,7 @@ export const setDoneTasks = (
     };
 
     state.workspaces = state.workspaces.map((workspace) => {
-      return workspace.id === state.workspaceEditing
+      return workspace.id === state.activeWorkspace
         ? updatedWorkspace
         : workspace;
     });

@@ -3,9 +3,9 @@ import { boardSlice } from './boardSlice';
 export const {
   createWorkspace,
   deleteWorkspace,
-  setItemEdited,
+  setActiveItem,
   saveEditedWorkspace,
-  setWorkspaceEditing,
+  setActiveWorkspace,
   createWorkspaceTasksGroup,
   deleteWorkspaceTasksGroup,
   updateWorkspaceName,

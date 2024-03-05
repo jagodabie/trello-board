@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BoardInterface } from '../types';
 import * as reducers from './reducers/reducers';
-import * as workspaceReducers from './reducers/workspaceReducer';
+import * as workspaceReducers from './reducers/workspaceReducers';
 
 export const initialState: BoardInterface = {
   workspaces: [
@@ -57,8 +57,9 @@ export const initialState: BoardInterface = {
       tasksGroups: [],
     },
   ],
-  itemEdited: '',
-  workspaceEditing: '',
+  activeItem: '',
+  // TODO: change to null
+  activeWorkspace: '2',
 };
 
 export const boardSlice = createSlice({
