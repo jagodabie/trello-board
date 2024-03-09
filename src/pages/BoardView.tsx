@@ -1,8 +1,12 @@
-import { BoardHeader, BoardMain, Heading, StyledBoardView } from '.';
-import { Input } from '../components/UI/Input/Input';
+import { BoardHeader, BoardMain, StyledBoardView } from '.';
 import { ReadModeElement } from '../components/UI/ReadModeElement/ReadModeElement';
 import { useAppDispatch, useAppSelector } from '../hooks/useAppDispatch';
-import { setActiveItem } from '../store/slices/actions';
+import { Textarea } from '../components/UI/Textarea/Textarea';
+import {
+  deleteWorkspace,
+  setActiveItem,
+  updateWorkspaceName,
+} from '../store/slices/actions';
 
 export const BoardView = ({ id }: { id: string }) => {
   const dispatch = useAppDispatch();
@@ -10,28 +14,37 @@ export const BoardView = ({ id }: { id: string }) => {
     state.board.workspaces.find((workspace) => workspace.id === id)
   );
 
+  const activeItem = useAppSelector((state) => state.board.activeItem);
+
   return (
     <StyledBoardView>
       <BoardHeader>
-        <ReadModeElement
-          name={activeWorkspace?.name || ''}
-          boardElementClass='workspace'
-          isActionVisible
-        />
-
-        <Input
-          placeholder='Add a title'
-          name='title'
-          // TODO: remov e console log dispatch(setActiveItem)
-          onBlur={(value) => console.log(value)}
-          defaultValue={activeWorkspace?.name}
-          type='text'
-        />
-        <Heading
-          onClick={() => dispatch(setActiveItem(activeWorkspace?.id || ''))}
-        >
-          {activeWorkspace?.name}
-        </Heading>
+        {/* TODO: Style for task but separate style for header */}
+        {activeItem && activeItem === activeWorkspace?.id ? (
+          <Textarea
+            placeholder='Add a title'
+            name='title'
+            onBlur={(inputValue) => {
+              console.log('inputValue', inputValue);
+              dispatch(setActiveItem(''));
+              if (!inputValue) return;
+              dispatch(updateWorkspaceName(inputValue));
+            }}
+            header={true}
+            defaultValue={activeWorkspace?.name}
+          />
+        ) : (
+          <ReadModeElement
+            header
+            name={activeWorkspace?.name || ''}
+            boardElementClass='workspace'
+            isActionVisible
+            onEdit={() => dispatch(setActiveItem(id))}
+            onDelete={() =>
+              dispatch(deleteWorkspace(activeWorkspace?.id || ''))
+            }
+          />
+        )}
       </BoardHeader>
       <BoardMain>Body</BoardMain>
     </StyledBoardView>

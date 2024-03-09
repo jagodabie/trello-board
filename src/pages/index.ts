@@ -11,11 +11,6 @@ export const BoardHeader = styled.div`
   width: 100%;
   text-align: left;
 `;
-
-export const Heading = styled.h3`
-  margin: 10px;
-`;
-
 export const BoardMain = styled.div`
   padding: 20px;
 `;

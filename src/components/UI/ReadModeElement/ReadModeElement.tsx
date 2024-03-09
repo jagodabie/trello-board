@@ -4,19 +4,24 @@ import { Edit } from '../../../assets/icons/Edit';
 
 export const ReadModeElement = ({
   name,
+  header,
   boardElementClass,
   isActionVisible = false,
   onEdit,
   onDelete,
 }: {
   name: string;
+  header?: boolean;
   boardElementClass: string;
   isActionVisible?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
 }) => {
   return (
-    <ReadModeElementWrapper boardElementClass={boardElementClass}>
+    <ReadModeElementWrapper
+      boardElementClass={boardElementClass}
+      header={header}
+    >
       <div className={`${boardElementClass}-name`} role='button' tabIndex={0}>
         {name}
       </div>
