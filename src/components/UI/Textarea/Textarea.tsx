@@ -5,8 +5,8 @@ import { TextareaWrapper } from '.';
 
 interface TextareaProps {
   placeholder: string;
-  name: string;
-  header?: boolean;
+  name?: string;
+  header?: number;
   defaultValue?: string | number;
   onBlur?: (textareaValue?: string) => void;
 }
@@ -25,9 +25,10 @@ export const Textarea: React.FC<TextareaProps> = ({
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
   };
+  const maxWidth = header ? 'none' : !name ? '14rem' : '12rem';
 
   return (
-    <TextareaWrapper header={header}>
+    <TextareaWrapper $header={header}>
       <TextareaAutosize
         name={name}
         value={textareaValue}
@@ -35,14 +36,14 @@ export const Textarea: React.FC<TextareaProps> = ({
         onChange={handleTextareaChange}
         style={{
           color: '#fff',
-          backgroundColor: '#101a21',
+          backgroundColor: !name ? 'transparent' : '#002e4e',
           resize: 'none',
           border: 'none',
           width: '100%',
           overflow: 'hidden',
           fontSize: '15px',
           marginLeft: '2px',
-          maxWidth: `${header ? 'none' : '9rem'}`,
+          maxWidth: `${maxWidth}`,
           lineHeight: '20px',
           wordBreak: 'break-word',
         }}

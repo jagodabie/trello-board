@@ -29,17 +29,17 @@ describe('textarea', () => {
     expect(onBlur).toHaveBeenCalledWith('go work');
   });
   test('rerenders proper style when header prop is given', () => {
-    render(<Textarea placeholder='Test Placeholder' name='test' header />);
+    render(<Textarea placeholder='Test Placeholder' name='test' header={1} />);
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     expect(textareaElement).toHaveStyle({
       maxWidth: 'none',
     });
-    test('rerenders proper style when header prop is not given', () => {
-      render(<Textarea placeholder='Test Placeholder' name='test' />);
-      const textareaElement = screen.getByPlaceholderText('Test Placeholder');
-      expect(textareaElement).toHaveStyle({
-        maxWidth: '9rem',
-      });
+  });
+  test('rerenders proper style when header prop is not given', () => {
+    render(<Textarea placeholder='Test Placeholder' name='test' />);
+    const textareaElement = screen.getByPlaceholderText('Test Placeholder');
+    expect(textareaElement).toHaveStyle({
+      maxWidth: '9rem',
     });
   });
 });

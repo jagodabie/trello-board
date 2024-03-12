@@ -11,7 +11,7 @@ export const ReadModeElement = ({
   onDelete,
 }: {
   name: string;
-  header?: boolean;
+  header?: number;
   boardElementClass: string;
   isActionVisible?: boolean;
   onEdit?: () => void;
@@ -19,8 +19,8 @@ export const ReadModeElement = ({
 }) => {
   return (
     <ReadModeElementWrapper
-      boardElementClass={boardElementClass}
-      header={header}
+      className={boardElementClass || ''}
+      $header={header || 0}
     >
       <div className={`${boardElementClass}-name`} role='button' tabIndex={0}>
         {name}

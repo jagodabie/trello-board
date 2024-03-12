@@ -7,6 +7,7 @@ import {
   setActiveItem,
   updateWorkspaceName,
 } from '../store/slices/actions';
+import { TasksGroup } from '../components/TasksGroups/TasksGroup';
 
 export const BoardView = ({ id }: { id: string }) => {
   const dispatch = useAppDispatch();
@@ -30,12 +31,12 @@ export const BoardView = ({ id }: { id: string }) => {
               if (!inputValue) return;
               dispatch(updateWorkspaceName(inputValue));
             }}
-            header={true}
+            header={1}
             defaultValue={activeWorkspace?.name}
           />
         ) : (
           <ReadModeElement
-            header
+            header={1}
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
             isActionVisible
@@ -46,7 +47,12 @@ export const BoardView = ({ id }: { id: string }) => {
           />
         )}
       </BoardHeader>
-      <BoardMain>Body</BoardMain>
+      <BoardMain>
+        {activeWorkspace?.tasksGroups &&
+          activeWorkspace?.tasksGroups.map((tasksGroup) => (
+            <TasksGroup tasksGroup={tasksGroup} />
+          ))}
+      </BoardMain>
     </StyledBoardView>
   );
 };
