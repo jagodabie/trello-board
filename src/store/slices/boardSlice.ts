@@ -59,7 +59,7 @@ export const initialState: BoardInterface = {
   ],
   activeItem: '',
   // TODO: change to null
-  activeWorkspace: '2',
+  activeWorkspace: '1',
 };
 
 export const boardSlice = createSlice({

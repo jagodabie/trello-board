@@ -26,7 +26,6 @@ export const BoardView = ({ id }: { id: string }) => {
             placeholder='Add a title'
             name='title'
             onBlur={(inputValue) => {
-              console.log('inputValue', inputValue);
               dispatch(setActiveItem(''));
               if (!inputValue) return;
               dispatch(updateWorkspaceName(inputValue));
@@ -36,6 +35,7 @@ export const BoardView = ({ id }: { id: string }) => {
           />
         ) : (
           <ReadModeElement
+            key={activeWorkspace?.id}
             header={1}
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
@@ -50,7 +50,7 @@ export const BoardView = ({ id }: { id: string }) => {
       <BoardMain>
         {activeWorkspace?.tasksGroups &&
           activeWorkspace?.tasksGroups.map((tasksGroup) => (
-            <TasksGroup tasksGroup={tasksGroup} />
+            <TasksGroup tasksGroup={tasksGroup} key={tasksGroup.id} />
           ))}
       </BoardMain>
     </StyledBoardView>

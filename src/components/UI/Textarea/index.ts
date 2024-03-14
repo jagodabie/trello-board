@@ -2,12 +2,14 @@ import styled from 'styled-components';
 
 interface TextareaWrapperProps {
   $header?: number;
+  $transparent?: number;
 }
 
 export const TextareaWrapper = styled.div<TextareaWrapperProps>`
   border: none;
   color: #fff;
-  // background-color: #002e4e;
+  background-color: ${(props) =>
+    props?.$transparent ? 'transparent' : '#002e4e'};
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   max-width: ${(props) => (props?.$header ? 'none' : '14rem')};

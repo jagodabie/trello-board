@@ -28,7 +28,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   const maxWidth = header ? 'none' : !name ? '14rem' : '12rem';
 
   return (
-    <TextareaWrapper $header={header}>
+    <TextareaWrapper $header={header} $transparent={1}>
       <TextareaAutosize
         name={name}
         value={textareaValue}
