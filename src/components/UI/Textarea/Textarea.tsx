@@ -7,6 +7,7 @@ interface TextareaProps {
   placeholder: string;
   name?: string;
   header?: number;
+  ariaLabel: string;
   defaultValue?: string | number;
   onBlur?: (textareaValue?: string) => void;
 }
@@ -15,6 +16,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   placeholder,
   name,
   header,
+  ariaLabel,
   defaultValue,
   onBlur,
 }) => {
@@ -33,6 +35,7 @@ export const Textarea: React.FC<TextareaProps> = ({
         name={name}
         value={textareaValue}
         placeholder={placeholder}
+        aria-label={ariaLabel}
         onChange={handleTextareaChange}
         style={{
           color: '#fff',

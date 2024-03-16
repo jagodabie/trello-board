@@ -1,14 +1,12 @@
-import { logRoles, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReadModeElement } from './ReadModeElement';
 
 describe('ReadModeElement', () => {
   test('component correctly display element name', () => {
-    const view = render(
-      <ReadModeElement name='Test name' boardElementClass='test-name' />
-    );
+    render(<ReadModeElement name='Test name' boardElementClass='test-name' />);
     const nameElement = screen.getByRole('button', { name: 'Test name' });
-    logRoles(view.container);
+
     expect(nameElement).toBeInTheDocument();
   });
 

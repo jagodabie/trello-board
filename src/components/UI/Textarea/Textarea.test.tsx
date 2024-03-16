@@ -4,13 +4,21 @@ import { Textarea } from './Textarea';
 
 describe('textarea', () => {
   test('renders correctly textarea when placeholder, name props are given', () => {
-    render(<Textarea placeholder='Test Placeholder' name='testName' />);
+    render(
+      <Textarea
+        placeholder='Test Placeholder'
+        name='testName'
+        ariaLabel='title'
+      />
+    );
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     expect(textareaElement).toBeInTheDocument();
   });
 
   test('updates textarea value on change', async () => {
-    render(<Textarea placeholder='Test Placeholder' name='test' />);
+    render(
+      <Textarea placeholder='Test Placeholder' name='test' ariaLabel='title' />
+    );
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     await userEvent.type(textareaElement, 'go work');
     await userEvent.clear(textareaElement);
@@ -21,7 +29,12 @@ describe('textarea', () => {
   test.skip('calls onBlur when textarea loses focus', async () => {
     const onBlur = jest.fn();
     render(
-      <Textarea placeholder='Test Placeholder' name='test' onBlur={onBlur} />
+      <Textarea
+        placeholder='Test Placeholder'
+        name='test'
+        onBlur={onBlur}
+        ariaLabel='title'
+      />
     );
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     await userEvent.type(textareaElement, 'go work');
@@ -29,17 +42,26 @@ describe('textarea', () => {
     expect(onBlur).toHaveBeenCalledWith('go work');
   });
   test('rerenders proper style when header prop is given', () => {
-    render(<Textarea placeholder='Test Placeholder' name='test' header={1} />);
+    render(
+      <Textarea
+        placeholder='Test Placeholder'
+        name='test'
+        header={1}
+        ariaLabel='title'
+      />
+    );
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     expect(textareaElement).toHaveStyle({
       maxWidth: 'none',
     });
   });
   test('rerenders proper style when header prop is not given', () => {
-    render(<Textarea placeholder='Test Placeholder' name='test' />);
+    render(
+      <Textarea placeholder='Test Placeholder' name='test' ariaLabel='title' />
+    );
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     expect(textareaElement).toHaveStyle({
-      maxWidth: '9rem',
+      maxWidth: '12rem',
     });
   });
 });

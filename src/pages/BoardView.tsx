@@ -16,15 +16,16 @@ export const BoardView = ({ id }: { id: string }) => {
   );
 
   const activeItem = useAppSelector((state) => state.board.activeItem);
-
   return (
     <StyledBoardView>
-      <BoardHeader>
+      <BoardHeader role='header' aria-label='Board header'>
         {/* TODO: Style for task but separate style for header */}
+
         {activeItem && activeItem === activeWorkspace?.id ? (
           <Textarea
             placeholder='Add a title'
             name='title'
+            ariaLabel='title'
             onBlur={(inputValue) => {
               dispatch(setActiveItem(''));
               if (!inputValue) return;
@@ -47,11 +48,14 @@ export const BoardView = ({ id }: { id: string }) => {
           />
         )}
       </BoardHeader>
-      <BoardMain>
-        {activeWorkspace?.tasksGroups &&
+      <BoardMain role='main' aria-label='Board main'>
+        {activeWorkspace?.tasksGroups.length ? (
           activeWorkspace?.tasksGroups.map((tasksGroup) => (
             <TasksGroup tasksGroup={tasksGroup} key={tasksGroup.id} />
-          ))}
+          ))
+        ) : (
+          <p aria-label='No tasks groups'>No tasks groups</p>
+        )}
       </BoardMain>
     </StyledBoardView>
   );
