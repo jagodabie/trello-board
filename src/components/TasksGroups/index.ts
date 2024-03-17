@@ -13,4 +13,4 @@ export const TasksGroupWrapper = styled.div`
     box-sizing: border-box;
     width: 100%;
   }
-`;
+}`;

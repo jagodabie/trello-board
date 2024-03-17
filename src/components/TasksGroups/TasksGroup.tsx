@@ -20,10 +20,16 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
 
   return (
     <TasksGroupWrapper>
-      <div className='tasks-list-header'>
+      <div
+        role='heading'
+        aria-level={7}
+        aria-label='Task group header'
+        className='tasks-list-header'
+      >
         {/* name, id */}
         {id === activeItem ? (
           <Textarea
+            ariaLabel='Add list'
             placeholder='Add list'
             defaultValue={name}
             onBlur={(inputValue) => {
@@ -44,8 +50,16 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
           />
         )}
       </div>
-      <div className='tasks-list-main'></div>
-      <div className='tasks-list-footer'></div>
+      <div
+        className='tasks-list-main'
+        role='main'
+        aria-label='Tasks group main'
+      ></div>
+      <div
+        className='tasks-list-footer'
+        role='contentinfo'
+        aria-label='Tasks group footer'
+      ></div>
     </TasksGroupWrapper>
   );
 };
