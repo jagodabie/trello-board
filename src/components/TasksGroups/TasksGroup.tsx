@@ -29,6 +29,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
         {/* name, id */}
         {id === activeItem ? (
           <Textarea
+            // TODO: add cases
             ariaLabel='Add list'
             placeholder='Add list'
             defaultValue={name}
@@ -46,7 +47,9 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
             boardElementClass='tasksGroup'
             isActionVisible
             onEdit={() => dispatch(setActiveItem(id))}
-            onDelete={() => dispatch(deleteWorkspaceTasksGroup(id))}
+            onDelete={() => {
+              dispatch(deleteWorkspaceTasksGroup(id));
+            }}
           />
         )}
       </div>
