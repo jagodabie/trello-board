@@ -6,6 +6,7 @@ import {
   updateTasksGroupName,
 } from '../../store/slices/actions';
 import { TasksGroupInterface } from '../../store/types';
+import { Button } from '../UI/Button/Button';
 import { ReadModeElement } from '../UI/ReadModeElement/ReadModeElement';
 import { Textarea } from '../UI/Textarea/Textarea';
 
@@ -62,7 +63,9 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
         className='tasks-list-footer'
         role='contentinfo'
         aria-label='Tasks group footer'
-      ></div>
+      >
+        <Button text='Add task' onClick={() => console.log('Jagoda')} />
+      </div>
     </TasksGroupWrapper>
   );
 };
