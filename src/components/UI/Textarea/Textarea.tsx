@@ -8,6 +8,7 @@ interface TextareaProps {
   name?: string;
   header?: number;
   ariaLabel: string;
+  transparent?: number;
   defaultValue?: string | number;
   onBlur?: (textareaValue?: string) => void;
 }
@@ -18,6 +19,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   header,
   ariaLabel,
   defaultValue,
+  transparent,
   onBlur,
 }) => {
   const [textareaValue, setTextareaValue] = useState<string>(
@@ -28,9 +30,8 @@ export const Textarea: React.FC<TextareaProps> = ({
     setTextareaValue(e.target.value);
   };
   const maxWidth = header ? 'none' : !name ? '14rem' : '12rem';
-
   return (
-    <TextareaWrapper $header={header} $transparent={1}>
+    <TextareaWrapper $header={header} $transparent={transparent}>
       <TextareaAutosize
         name={name}
         value={textareaValue}
