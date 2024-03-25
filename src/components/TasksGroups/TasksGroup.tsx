@@ -1,4 +1,3 @@
-import { doesNotMatch } from 'assert';
 import { TasksGroupWrapper } from '.';
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
 import {
@@ -7,17 +6,17 @@ import {
   setTasks,
   updateTasksGroupName,
 } from '../../store/slices/actions';
-import { TasksGroupInterface } from '../../store/types';
 import { Task } from '../Task/Task';
 import { Button } from '../UI/Button/Button';
 import { ReadModeElement } from '../UI/ReadModeElement/ReadModeElement';
 import { Textarea } from '../UI/Textarea/Textarea';
 import { generateId } from '../../utils';
 import { useEffect, useState } from 'react';
+import { TasksGroupProps } from './index.type';
+import { SortableContext } from '@dnd-kit/sortable';
+import { withDnDElement } from '../../hoc/withDnDElement';
 
-interface TasksGroupProps {
-  tasksGroup: TasksGroupInterface;
-}
+const DraggableTask = withDnDElement(Task);
 
 export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
   const dispatch = useAppDispatch();
@@ -69,10 +68,19 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
         role='main'
         aria-label='Tasks group main'
       >
-        {tasks?.length &&
-          tasks.map((task) => (
-            <Task task={task} key={task.id} tasksGroup={tasksGroup} />
-          ))}
+        <SortableContext items={tasks}>
+          {tasks?.length &&
+            tasks.map((task) => (
+              <DraggableTask
+                element={task}
+                type='task'
+                task={task}
+                key={task.id}
+                id={task.id}
+                tasksGroup={tasksGroup}
+              />
+            ))}
+        </SortableContext>
       </div>
       <div
         className='tasks-list-footer'

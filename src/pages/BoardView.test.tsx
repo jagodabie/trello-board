@@ -89,10 +89,12 @@ describe('BoardView', () => {
                 {
                   id: '1',
                   name: 'Tasks Group 1',
+                  tasks: [],
                 },
                 {
                   id: '2',
                   name: 'Tasks Group 2',
+                  tasks: [],
                 },
               ],
             },
@@ -142,10 +144,12 @@ describe('BoardView', () => {
                 {
                   id: '1',
                   name: 'Tasks Group 1',
+                  tasks: [],
                 },
                 {
                   id: '2',
                   name: 'Tasks Group 2',
+                  tasks: [],
                 },
               ],
             },

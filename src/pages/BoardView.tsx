@@ -3,16 +3,39 @@ import { ReadModeElement } from '../components/UI/ReadModeElement/ReadModeElemen
 import { useAppDispatch, useAppSelector } from '../hooks/useAppDispatch';
 import { Textarea } from '../components/UI/Textarea/Textarea';
 import {
+  DndContext,
+  PointerSensor,
+  closestCorners,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
   deleteWorkspace,
   setActiveItem,
   updateWorkspaceName,
 } from '../store/slices/actions';
 import { TasksGroup } from '../components/TasksGroups/TasksGroup';
+import { useHandleDragEnd } from '../hooks/useHandleDragEnd/useHandleDragEnd';
+import { SortableContext } from '@dnd-kit/sortable';
+import { withDnDElement } from '../hoc/withDnDElement';
+
+const DraggableTasksGroup = withDnDElement(TasksGroup);
 
 export const BoardView = ({ id }: { id: string }) => {
   const dispatch = useAppDispatch();
   const activeWorkspace = useAppSelector((state) =>
     state.board.workspaces.find((workspace) => workspace.id === id)
+  );
+  const { handleDragEnd } = useHandleDragEnd(
+    activeWorkspace?.tasksGroups || []
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    })
   );
 
   const activeItem = useAppSelector((state) => state.board.activeItem);
@@ -49,13 +72,27 @@ export const BoardView = ({ id }: { id: string }) => {
         )}
       </BoardHeader>
       <BoardMain role='main' aria-label='Board main'>
-        {activeWorkspace?.tasksGroups.length ? (
-          activeWorkspace?.tasksGroups.map((tasksGroup) => (
-            <TasksGroup tasksGroup={tasksGroup} key={tasksGroup.id} />
-          ))
-        ) : (
-          <p aria-label='No tasks groups'>No tasks groups</p>
-        )}
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          collisionDetection={closestCorners}
+        >
+          <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
+            {activeWorkspace?.tasksGroups.length ? (
+              activeWorkspace?.tasksGroups.map((tasksGroup) => (
+                <DraggableTasksGroup
+                  type='tasksGroup'
+                  element={tasksGroup}
+                  tasksGroup={tasksGroup}
+                  id={tasksGroup.id}
+                  key={tasksGroup.id}
+                />
+              ))
+            ) : (
+              <p aria-label='No tasks groups'>No tasks groups</p>
+            )}
+          </SortableContext>
+        </DndContext>
       </BoardMain>
     </StyledBoardView>
   );
