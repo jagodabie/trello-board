@@ -15,4 +15,5 @@ export const BoardMain = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 0.3rem;
+  height: 80vh;
 `;

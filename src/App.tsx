@@ -21,7 +21,7 @@ function App() {
       </header>
 
       <main>
-        <button onClick={toggleDrawer('left', true)}>Open Left</button>
+        {/* <button onClick={toggleDrawer('left', true)}>Open Left</button> */}
         <Drawer
           anchor={'left'}
           open={menuOpen['left']}

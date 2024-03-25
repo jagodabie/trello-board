@@ -17,7 +17,8 @@ describe('Task', () => {
     id: '1',
     name: 'Tasks group',
     workspaceId: '1',
-    tasks: [task],
+    doneTasks: 8,
+    tasks: [],
   };
 
   it('renders the task  name', () => {

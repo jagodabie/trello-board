@@ -13,6 +13,7 @@ import { Button } from '../UI/Button/Button';
 import { ReadModeElement } from '../UI/ReadModeElement/ReadModeElement';
 import { Textarea } from '../UI/Textarea/Textarea';
 import { generateId } from '../../utils';
+import { useEffect, useState } from 'react';
 
 interface TasksGroupProps {
   tasksGroup: TasksGroupInterface;
@@ -22,9 +23,14 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
   const dispatch = useAppDispatch();
   const { id, name, tasks } = tasksGroup;
   const activeItem = useAppSelector((state) => state.board.activeItem);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    setHeight(tasks.length * 3 + 1);
+  }, [tasks.length]);
 
   return (
-    <TasksGroupWrapper>
+    <TasksGroupWrapper $height={height.toString()}>
       <div
         role='heading'
         aria-level={7}
@@ -75,7 +81,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
       >
         <Button
           text='Add task'
-          onClick={() =>
+          onClick={() => {
             dispatch(
               setTasks({
                 tasks: [
@@ -89,8 +95,9 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
                 ],
                 tasksGroupId: tasksGroup.id,
               })
-            )
-          }
+            );
+            setHeight(tasks.length * 3 + 1);
+          }}
         />
       </div>
     </TasksGroupWrapper>

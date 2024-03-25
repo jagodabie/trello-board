@@ -10,6 +10,7 @@ describe('TasksGroup', () => {
     id: '1',
     name: 'Test Group',
     workspaceId: '1',
+    doneTasks: 8,
     tasks: [],
   };
 
