@@ -29,6 +29,19 @@ export const updateWorkspaceName = (
   }
 };
 
+export const setActiveColumn = (
+  state: BoardInterface,
+  action: PayloadAction<string>
+) => {
+  state.activeColumn = action.payload;
+};
+
+export const setActiveTask = (
+  state: BoardInterface,
+  action: PayloadAction<string>
+) => {
+  state.activeColumn = action.payload;
+};
 export const deleteWorkspace = (
   state: BoardInterface,
   action: PayloadAction<string>

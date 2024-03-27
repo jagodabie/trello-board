@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface TasksGroupWrapperProps {
   $height: string;
-  className?: string;
+  active: number;
 }
 export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
   display: flex;
@@ -13,6 +13,9 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
   margin: 0.2rem;
   max-height: 100%;
   height: fit-content;
+  outline: ${({ active }) => (active ? 'solid 1px #fff' : 'none')};
+  box-shadow: ${({ active }) =>
+    active ? '0px 0px 8px rgba(255, 255, 255, 0.5)' : 'none'};
 
   .tasks-list-header {
     box-sizing: border-box;
@@ -40,7 +43,7 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
         `${Number(props.$height) > 25 ? 'auto' : 'hidden'}  `};
 
       scrollbar-width: thin;
-      scrollbar-color: #002e4e transparent;
+      scrollbar-color: #0C0F29 transparent;
     }
 
     .tasks-list-footer {
@@ -49,7 +52,7 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
       margin: 6px 3px;
 
       &:hover {
-        background: #002e4e;
+        background: #0C0F29;
         border-radius: 8px;
       }
     }

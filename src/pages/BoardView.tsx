@@ -11,6 +11,7 @@ import {
 } from '@dnd-kit/core';
 import {
   deleteWorkspace,
+  setActiveColumn,
   setActiveItem,
   updateWorkspaceName,
 } from '../store/slices/actions';
@@ -18,6 +19,7 @@ import { TasksGroup } from '../components/TasksGroups/TasksGroup';
 import { useHandleDragEnd } from '../hooks/useHandleDragEnd/useHandleDragEnd';
 import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../hoc/withDnDElement';
+import { TasksGroupInterface } from '../store/types';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 
@@ -75,19 +77,22 @@ export const BoardView = ({ id }: { id: string }) => {
         <DndContext
           sensors={sensors}
           onDragEnd={handleDragEnd}
+          onDragStart={(e) => dispatch(setActiveColumn(e.active.id.toString()))}
           collisionDetection={closestCorners}
         >
           <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
             {activeWorkspace?.tasksGroups.length ? (
-              activeWorkspace?.tasksGroups.map((tasksGroup) => (
-                <DraggableTasksGroup
-                  type='tasksGroup'
-                  element={tasksGroup}
-                  tasksGroup={tasksGroup}
-                  id={tasksGroup.id}
-                  key={tasksGroup.id}
-                />
-              ))
+              activeWorkspace?.tasksGroups.map(
+                (tasksGroup: TasksGroupInterface) => (
+                  <DraggableTasksGroup
+                    type='tasksGroup'
+                    element={tasksGroup}
+                    tasksGroup={tasksGroup}
+                    id={tasksGroup.id}
+                    key={tasksGroup.id}
+                  />
+                )
+              )
             ) : (
               <p aria-label='No tasks groups'>No tasks groups</p>
             )}

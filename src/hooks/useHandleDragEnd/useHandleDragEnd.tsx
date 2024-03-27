@@ -1,6 +1,10 @@
 import { DragOverEvent } from '@dnd-kit/core';
 import { TaskInterface, TasksGroupInterface } from '../../store/types';
-import { setTasks, setTasksGroupOrder } from '../../store/slices/actions';
+import {
+  setActiveColumn,
+  setTasks,
+  setTasksGroupOrder,
+} from '../../store/slices/actions';
 import { changedElementsOrder, getTaskPosition } from '../../utils';
 import { useAppDispatch } from '../useAppDispatch';
 
@@ -85,6 +89,7 @@ export const useHandleDragEnd = (tasksGroups: TasksGroupInterface[]) => {
           })
         );
       }
+      dispatch(setActiveColumn(''));
     },
   };
 };

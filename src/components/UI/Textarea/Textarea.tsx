@@ -40,7 +40,7 @@ export const Textarea: React.FC<TextareaProps> = ({
         onChange={handleTextareaChange}
         style={{
           color: '#fff',
-          backgroundColor: !name ? 'transparent' : '#002e4e',
+          backgroundColor: !name ? 'transparent' : '#0C0F29',
           resize: 'none',
           border: 'none',
           width: '100%',

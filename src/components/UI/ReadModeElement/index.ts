@@ -9,7 +9,7 @@ interface ReadModeElementWrapperProps {
 export const ReadModeElementWrapper = styled.div<ReadModeElementWrapperProps>`
   justify-content: space-between;
   background-color: ${(props) =>
-    props?.$transparent ? 'transparent' : '#002e4e'};
+    props?.$transparent ? 'transparent' : '#0C0F29'};
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;

@@ -21,4 +21,6 @@ export interface BoardInterface {
   workspaces: WorkspaceInterface[];
   activeWorkspace: string;
   activeItem: string;
+  activeColumn?: string;
+  activeTask?: string;
 }

@@ -19,17 +19,21 @@ import { withDnDElement } from '../../hoc/withDnDElement';
 const DraggableTask = withDnDElement(Task);
 
 export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
+  const [height, setHeight] = useState(0);
   const dispatch = useAppDispatch();
   const { id, name, tasks } = tasksGroup;
-  const activeItem = useAppSelector((state) => state.board.activeItem);
-  const [height, setHeight] = useState(0);
+  const boardSlice = useAppSelector(({ board }) => board);
+  const { activeItem, activeColumn } = boardSlice;
 
   useEffect(() => {
     setHeight(tasks.length * 3 + 1);
   }, [tasks.length]);
 
   return (
-    <TasksGroupWrapper $height={height.toString()}>
+    <TasksGroupWrapper
+      $height={height.toString()}
+      active={Number(activeColumn === id)}
+    >
       <div
         role='heading'
         aria-level={7}

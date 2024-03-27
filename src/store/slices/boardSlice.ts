@@ -60,6 +60,8 @@ export const initialState: BoardInterface = {
   activeItem: '',
   // TODO: change to null
   activeWorkspace: '1',
+  activeColumn: '',
+  activeTask: '',
 };
 
 export const boardSlice = createSlice({

@@ -9,7 +9,7 @@ export const TextareaWrapper = styled.div<TextareaWrapperProps>`
   border: none;
   color: #fff;
   background-color: ${(props) =>
-    props?.$transparent ? 'transparent' : '#002e4e'};
+    props?.$transparent ? 'transparent' : '#0C0F29'};
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   max-width: ${(props) => (props?.$header ? 'none' : '14rem')};
