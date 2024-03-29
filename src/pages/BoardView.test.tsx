@@ -23,6 +23,8 @@ describe('BoardView', () => {
           ],
           activeItem: '',
           activeWorkspace: '1',
+          activeColumn: '',
+          activeTask: '',
         },
       },
     };

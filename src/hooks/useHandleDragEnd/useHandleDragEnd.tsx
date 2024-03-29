@@ -45,7 +45,7 @@ export const useHandleDragEnd = (tasksGroups: TasksGroupInterface[]) => {
           })
         );
       }
-      // DnD between columns
+      // DnD columns
       if (active.id && over?.id && !isOverATask && !isActiveATask) {
         dispatch(
           setTasksGroupOrder(
@@ -57,7 +57,8 @@ export const useHandleDragEnd = (tasksGroups: TasksGroupInterface[]) => {
           )
         );
       }
-      if (isActiveATask && isOverATask && columnOverId !== columnActiveId) {
+
+      if (isActiveATask && columnOverId !== columnActiveId) {
         const tasksGroupActive = tasksGroups.find(
           (group: TasksGroupInterface) => group.id === columnActiveId
         );
@@ -75,17 +76,29 @@ export const useHandleDragEnd = (tasksGroups: TasksGroupInterface[]) => {
 
         dispatch(
           setTasks({
-            tasks: newActiveTasks?.length ? newActiveTasks : [],
-            tasksGroupId: columnActiveId,
+            tasks: newActiveTasks ? newActiveTasks : [],
+            tasksGroupId: columnActiveId
+              ? columnActiveId
+              : over?.data.current?.element?.id,
           })
         );
 
         dispatch(
           setTasks({
-            tasks: [...tasksGroupOver, activeTask]?.length
-              ? [...tasksGroupOver, activeTask]
+            tasks: [...tasksGroupOver, activeTask]
+              ? [
+                  ...tasksGroupOver,
+                  {
+                    ...activeTask,
+                    tasksGroupId: columnOverId
+                      ? columnOverId
+                      : over?.data.current?.element?.id,
+                  },
+                ]
               : [],
-            tasksGroupId: columnOverId,
+            tasksGroupId: columnOverId
+              ? columnOverId
+              : over?.data.current?.element?.id,
           })
         );
       }

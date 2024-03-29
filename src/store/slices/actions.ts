@@ -15,4 +15,5 @@ export const {
   setTasks,
   setDoneTasks,
   setActiveColumn,
+  setActiveTask,
 } = boardSlice.actions;

@@ -13,7 +13,8 @@ export const Task = ({
   tasksGroup: TasksGroupInterface;
 }) => {
   const { name, id } = task;
-  const activeItem = useAppSelector((state) => state.board.activeItem);
+  const board = useAppSelector((state) => state.board);
+  const { activeItem } = board;
   const dispatch = useAppDispatch();
   const updateTaskProperty = useUpdateTaskProperty(task, tasksGroup);
 
@@ -35,7 +36,8 @@ export const Task = ({
         <ReadModeElement
           key={id}
           name={name}
-          boardElementClass='tasksGroup'
+          active={Number(id === activeItem)}
+          boardElementClass='tasks'
           isActionVisible
           onEdit={() => dispatch(setActiveItem(id))}
           onDelete={() =>
