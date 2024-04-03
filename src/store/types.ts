@@ -22,5 +22,5 @@ export interface BoardInterface {
   activeWorkspace: string;
   activeItem: string;
   activeColumn: string;
-  activeTask: string;
+  activeTask: TaskInterface | null;
 }

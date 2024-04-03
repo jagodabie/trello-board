@@ -17,13 +17,13 @@ export const initialState: BoardInterface = {
           tasks: [
             {
               id: '21',
-              name: 'Task 1',
+              name: 'Task 111',
               done: false,
               tasksGroupId: '1233',
             },
             {
               id: '22',
-              name: 'Task 2',
+              name: 'Task 222',
               done: true,
               tasksGroupId: '1233',
             },
@@ -61,7 +61,7 @@ export const initialState: BoardInterface = {
   // TODO: change to null
   activeWorkspace: '1',
   activeColumn: '',
-  activeTask: '',
+  activeTask: null,
 };
 
 export const boardSlice = createSlice({

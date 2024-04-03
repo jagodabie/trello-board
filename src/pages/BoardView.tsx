@@ -20,6 +20,7 @@ import { useHandleDragEnd } from '../hooks/useHandleDragEnd/useHandleDragEnd';
 import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../hoc/withDnDElement';
 import { TasksGroupInterface } from '../store/types';
+import { useHandleOnDragOver } from '../hooks/useHandleOnDragOver/useHandleOnDragOver';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 
@@ -28,9 +29,11 @@ export const BoardView = ({ id }: { id: string }) => {
   const activeWorkspace = useAppSelector((state) =>
     state.board.workspaces.find((workspace) => workspace.id === id)
   );
-  const { handleDragEnd } = useHandleDragEnd(
+  const { handleOnDragOver } = useHandleOnDragOver(
     activeWorkspace?.tasksGroups || []
   );
+
+  const { handleDragEnd } = useHandleDragEnd();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -76,6 +79,7 @@ export const BoardView = ({ id }: { id: string }) => {
       <BoardMain role='main' aria-label='Board main'>
         <DndContext
           sensors={sensors}
+          onDragOver={handleOnDragOver}
           onDragEnd={handleDragEnd}
           onDragStart={(e) => dispatch(setActiveColumn(e.active.id.toString()))}
           collisionDetection={closestCorners}

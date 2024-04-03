@@ -17,7 +17,6 @@ export const Task = ({
   const { activeItem } = board;
   const dispatch = useAppDispatch();
   const updateTaskProperty = useUpdateTaskProperty(task, tasksGroup);
-
   return (
     <>
       {id === activeItem ? (

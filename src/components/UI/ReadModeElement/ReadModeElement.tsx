@@ -5,6 +5,7 @@ import { Edit } from '../../../assets/icons/Edit';
 export const ReadModeElement = ({
   name,
   header,
+  active,
   boardElementClass,
   transparent = 0,
   isActionVisible = false,
@@ -13,6 +14,7 @@ export const ReadModeElement = ({
 }: {
   name: string;
   header?: number;
+  active?: number;
   transparent?: number;
   boardElementClass: string;
   isActionVisible?: boolean;
@@ -21,6 +23,7 @@ export const ReadModeElement = ({
 }) => {
   return (
     <ReadModeElementWrapper
+      active={active || 0}
       className={boardElementClass || ''}
       $header={header || 0}
       $transparent={transparent}
