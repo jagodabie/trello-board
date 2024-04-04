@@ -14,7 +14,9 @@ import { generateId } from '../../utils';
 import { useEffect, useState } from 'react';
 import { TasksGroupProps } from './index.type';
 import { SortableContext } from '@dnd-kit/sortable';
+import { DragOverlay } from '@dnd-kit/core';
 import { withDnDElement } from '../../hoc/withDnDElement';
+import { createPortal } from 'react-dom';
 
 const DraggableTask = withDnDElement(Task);
 
@@ -23,7 +25,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
   const dispatch = useAppDispatch();
   const { id, name, tasks } = tasksGroup;
   const boardSlice = useAppSelector(({ board }) => board);
-  const { activeItem, activeColumn } = boardSlice;
+  const { activeItem, activeColumn, activeTask } = boardSlice;
 
   useEffect(() => {
     setHeight(tasks.length * 3 + 1);
@@ -84,6 +86,19 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
                 tasksGroup={tasksGroup}
               />
             ))}
+          <DragOverlay>
+            {activeItem &&
+              createPortal(
+                <DraggableTask
+                  task={activeTask!}
+                  tasksGroup={tasksGroup}
+                  type='task'
+                  id={activeTask!.id}
+                  element={activeTask!}
+                />,
+                document.body // Add the target container as the second argument to createPortal
+              )}
+          </DragOverlay>
         </SortableContext>
       </div>
       <div
