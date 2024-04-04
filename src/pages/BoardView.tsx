@@ -13,6 +13,7 @@ import {
   deleteWorkspace,
   setActiveColumn,
   setActiveItem,
+  setActiveTask,
   updateWorkspaceName,
 } from '../store/slices/actions';
 import { TasksGroup } from '../components/TasksGroups/TasksGroup';
@@ -81,7 +82,12 @@ export const BoardView = ({ id }: { id: string }) => {
           sensors={sensors}
           onDragOver={handleOnDragOver}
           onDragEnd={handleDragEnd}
-          onDragStart={(e) => dispatch(setActiveColumn(e.active.id.toString()))}
+          onDragStart={(e) => {
+            if (e.active.data.current?.type === 'task') {
+              dispatch(setActiveTask(e.active.data.current?.element));
+            }
+            dispatch(setActiveColumn(e.active.id.toString()));
+          }}
           collisionDetection={closestCorners}
         >
           <SortableContext items={activeWorkspace?.tasksGroups ?? []}>

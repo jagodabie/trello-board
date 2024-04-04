@@ -36,7 +36,7 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
     }
 
     .tasks-list-main {
-      min-height: 1rem;
+      min-height: 2rem;
 
       height: ${(props) => `${props.$height}rem`};
       overflow: ${(props) =>

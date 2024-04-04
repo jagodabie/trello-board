@@ -38,7 +38,7 @@ export const setActiveColumn = (
 
 export const setActiveTask = (
   state: BoardInterface,
-  action: PayloadAction<TaskInterface>
+  action: PayloadAction<TaskInterface | null>
 ) => {
   state.activeTask = action.payload;
 };

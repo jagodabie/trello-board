@@ -1,4 +1,4 @@
-import { setActiveColumn } from '../../store/slices/actions';
+import { setActiveColumn, setActiveTask } from '../../store/slices/actions';
 import { useAppDispatch } from '../useAppDispatch';
 
 export const useHandleDragEnd = () => {
@@ -7,6 +7,7 @@ export const useHandleDragEnd = () => {
   return {
     handleDragEnd: () => {
       dispatch(setActiveColumn(''));
+      dispatch(setActiveTask(null));
     },
   };
 };

@@ -33,8 +33,7 @@ export const withDnDElement = <T extends {}>(
       transform: CSS.Transform.toString(transform),
       transition,
     };
-
-    //It does not work dragging the element when i uncomment this code
+    // It does not work dragging the element when i uncomment this code
     // if (isDragging) {
     //   return (
     //     <DraggingFrame>
