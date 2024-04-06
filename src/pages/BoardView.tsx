@@ -15,6 +15,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
+  createWorkspaceTasksGroup,
   deleteWorkspace,
   setActiveColumn,
   setActiveItem,
@@ -29,6 +30,9 @@ import { TasksGroupInterface } from '../store/types';
 import { useHandleOnDragOver } from '../hooks/useHandleOnDragOver/useHandleOnDragOver';
 import { createPortal } from 'react-dom';
 import { Task } from '../components/Task/Task';
+import { Button } from '../components/UI/Button/Button';
+import { Plus } from '../assets/icons/Plus';
+import { generateId } from '../utils';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
@@ -87,58 +91,76 @@ export const BoardView = ({ id }: { id: string }) => {
         )}
       </BoardHeader>
       <BoardMain role='main' aria-label='Board main'>
-        <DndContext
-          sensors={sensors}
-          onDragOver={handleOnDragOver}
-          onDragEnd={handleDragEnd}
-          onDragStart={(e) => {
-            e.active.data.current?.type === 'task'
-              ? dispatch(setActiveTask(e.active.data.current?.element))
-              : dispatch(setActiveColumn(e.active.data.current?.element));
-          }}
-        >
-          <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
-            {activeWorkspace?.tasksGroups.length ? (
-              activeWorkspace?.tasksGroups.map(
-                (tasksGroup: TasksGroupInterface) => (
-                  <DraggableTasksGroup
-                    type='tasksGroup'
-                    element={tasksGroup}
-                    tasksGroup={tasksGroup}
-                    id={tasksGroup.id}
-                    key={tasksGroup.id}
-                  />
+        {activeWorkspace?.tasksGroups?.length && (
+          <DndContext
+            sensors={sensors}
+            onDragOver={handleOnDragOver}
+            onDragEnd={handleDragEnd}
+            onDragStart={(e) => {
+              e.active.data.current?.type === 'task'
+                ? dispatch(setActiveTask(e.active.data.current?.element))
+                : dispatch(setActiveColumn(e.active.data.current?.element));
+            }}
+          >
+            <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
+              {activeWorkspace?.tasksGroups.length ? (
+                activeWorkspace?.tasksGroups.map(
+                  (tasksGroup: TasksGroupInterface) => (
+                    <DraggableTasksGroup
+                      type='tasksGroup'
+                      element={tasksGroup}
+                      tasksGroup={tasksGroup}
+                      id={tasksGroup.id}
+                      key={tasksGroup.id}
+                    />
+                  )
                 )
-              )
-            ) : (
-              <p aria-label='No tasks groups'>No tasks groups</p>
-            )}
-          </SortableContext>
-          {createPortal(
-            <DragOverlay>
-              {activeColumn && (
-                <DraggableTasksGroup
-                  element={activeColumn!}
-                  type='tasksGroup'
-                  tasksGroup={activeColumn!}
-                  id={activeColumn.id}
-                />
+              ) : (
+                <p aria-label='No tasks groups'>No tasks groups</p>
               )}
-              {activeTask && (
-                <ReadModeActiveWrapper>
-                  <DraggableTask
-                    element={activeTask}
-                    type='task'
-                    task={activeTask!}
-                    id={activeTask.id}
+            </SortableContext>
+            {createPortal(
+              <DragOverlay>
+                {activeColumn && (
+                  <DraggableTasksGroup
+                    element={activeColumn!}
+                    type='tasksGroup'
                     tasksGroup={activeColumn!}
+                    id={activeColumn.id}
                   />
-                </ReadModeActiveWrapper>
-              )}
-            </DragOverlay>,
-            document.body
-          )}
-        </DndContext>
+                )}
+                {activeTask && (
+                  <ReadModeActiveWrapper>
+                    <DraggableTask
+                      element={activeTask}
+                      type='task'
+                      task={activeTask!}
+                      id={activeTask.id}
+                      tasksGroup={activeColumn!}
+                    />
+                  </ReadModeActiveWrapper>
+                )}
+              </DragOverlay>,
+              document.body
+            )}
+          </DndContext>
+        )}
+        <Button
+          text={`Add ${
+            activeWorkspace?.tasksGroups?.length ? 'next' : 'new'
+          } list`}
+          iconComponent={<Plus color='#fff' />}
+          onClick={() => {
+            const newTasksGroup = {
+              id: generateId(),
+              name: 'New list',
+              tasks: [],
+              workspaceId: activeWorkspace?.id || '',
+            };
+            dispatch(createWorkspaceTasksGroup(newTasksGroup));
+            dispatch(setActiveColumn(newTasksGroup));
+          }}
+        />
       </BoardMain>
     </StyledBoardView>
   );

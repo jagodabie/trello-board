@@ -1,4 +1,4 @@
-export const Plus = ({ color }: { color?: string }) => (
+export const Plus = ({ color }: { color: string }) => (
   <svg
     width='17'
     height='16'
@@ -9,7 +9,7 @@ export const Plus = ({ color }: { color?: string }) => (
     <g clip-path='url(#clip0_2753_209)'>
       <path
         d='M7.83331 7.33334V3.33334H9.16665V7.33334H13.1666V8.66668H9.16665V12.6667H7.83331V8.66668H3.83331V7.33334H7.83331Z'
-        fill={color ? color : '#001C39'}
+        fill={color}
       />
     </g>
     <defs>
