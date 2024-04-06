@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
 import { useUpdateTaskProperty } from '../../hooks/useUpdateTaskProperty/useUpdateTaskProperty';
-import { setActiveItem, setTasks } from '../../store/slices/actions'; // Remove the unused import
+import { setActiveTask, setTasks } from '../../store/slices/actions';
 import { TaskInterface, TasksGroupInterface } from '../../store/types';
 import { ReadModeElement } from '../UI/ReadModeElement/ReadModeElement';
 import { Textarea } from '../UI/Textarea/Textarea';
@@ -14,12 +14,12 @@ export const Task = ({
 }) => {
   const { name, id } = task;
   const board = useAppSelector((state) => state.board);
-  const { activeItem } = board;
+  const { activeTask } = board;
   const dispatch = useAppDispatch();
   const updateTaskProperty = useUpdateTaskProperty(task, tasksGroup);
   return (
     <>
-      {id === activeItem ? (
+      {id === activeTask?.id ? (
         <Textarea
           name={name}
           placeholder='Add task'
@@ -28,17 +28,17 @@ export const Task = ({
           onBlur={(inputValue) => {
             if (!inputValue) return;
             updateTaskProperty('name', inputValue || '');
-            dispatch(setActiveItem(''));
+            dispatch(setActiveTask(null));
           }}
         />
       ) : (
         <ReadModeElement
           key={id}
           name={name}
-          active={Number(id === activeItem)}
+          active={Number(id === activeTask?.id)}
           boardElementClass='tasks'
           isActionVisible
-          onEdit={() => dispatch(setActiveItem(id))}
+          onEdit={() => dispatch(setActiveTask(task))}
           onDelete={() =>
             dispatch(
               setTasks({

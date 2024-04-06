@@ -95,7 +95,7 @@ export const updateTasksGroupName = (
     (workspace) => workspace.id === state.activeWorkspace
   );
   const tasksGroupFound = workspaceFound?.tasksGroups.find(
-    (tasksGroup) => tasksGroup.id === state.activeItem
+    (tasksGroup) => tasksGroup.id === state.activeColumn?.id
   );
 
   if (workspaceFound && tasksGroupFound) {
@@ -105,7 +105,7 @@ export const updateTasksGroupName = (
     };
 
     const updatedTasksGroups = workspaceFound.tasksGroups.map((tasksGroup) => {
-      return tasksGroup.id === state.activeItem
+      return tasksGroup.id === state.activeColumn?.id
         ? updatedTasksGroup
         : tasksGroup;
     });

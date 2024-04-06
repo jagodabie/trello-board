@@ -20,7 +20,7 @@ export interface WorkspaceInterface {
 export interface BoardInterface {
   workspaces: WorkspaceInterface[];
   activeWorkspace: string;
+  activeColumn: TasksGroupInterface | null;
   activeItem: string;
-  activeColumn: string;
   activeTask: TaskInterface | null;
 }

@@ -1,11 +1,16 @@
-import { BoardHeader, BoardMain, StyledBoardView } from '.';
+import {
+  BoardHeader,
+  BoardMain,
+  ReadModeActiveWrapper,
+  StyledBoardView,
+} from '.';
 import { ReadModeElement } from '../components/UI/ReadModeElement/ReadModeElement';
 import { useAppDispatch, useAppSelector } from '../hooks/useAppDispatch';
 import { Textarea } from '../components/UI/Textarea/Textarea';
 import {
   DndContext,
+  DragOverlay,
   PointerSensor,
-  closestCorners,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -22,14 +27,19 @@ import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../hoc/withDnDElement';
 import { TasksGroupInterface } from '../store/types';
 import { useHandleOnDragOver } from '../hooks/useHandleOnDragOver/useHandleOnDragOver';
+import { createPortal } from 'react-dom';
+import { Task } from '../components/Task/Task';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
+const DraggableTask = withDnDElement(Task);
 
 export const BoardView = ({ id }: { id: string }) => {
   const dispatch = useAppDispatch();
-  const activeWorkspace = useAppSelector((state) =>
-    state.board.workspaces.find((workspace) => workspace.id === id)
+  const { activeTask, activeColumn, workspaces, activeItem } = useAppSelector(
+    (state) => state.board
   );
+  const activeWorkspace = workspaces?.find((workspace) => workspace?.id === id);
+
   const { handleOnDragOver } = useHandleOnDragOver(
     activeWorkspace?.tasksGroups || []
   );
@@ -44,19 +54,18 @@ export const BoardView = ({ id }: { id: string }) => {
     })
   );
 
-  const activeItem = useAppSelector((state) => state.board.activeItem);
   return (
     <StyledBoardView>
       <BoardHeader role='header' aria-label='Board header'>
         {/* TODO: Style for task but separate style for header */}
 
-        {activeItem && activeItem === activeWorkspace?.id ? (
+        {activeWorkspace?.id === activeItem ? (
           <Textarea
             placeholder='Add a title'
             name='title'
             ariaLabel='title'
             onBlur={(inputValue) => {
-              dispatch(setActiveItem(''));
+              dispatch(setActiveTask(null));
               if (!inputValue) return;
               dispatch(updateWorkspaceName(inputValue));
             }}
@@ -83,12 +92,10 @@ export const BoardView = ({ id }: { id: string }) => {
           onDragOver={handleOnDragOver}
           onDragEnd={handleDragEnd}
           onDragStart={(e) => {
-            if (e.active.data.current?.type === 'task') {
-              dispatch(setActiveTask(e.active.data.current?.element));
-            }
-            dispatch(setActiveColumn(e.active.id.toString()));
+            e.active.data.current?.type === 'task'
+              ? dispatch(setActiveTask(e.active.data.current?.element))
+              : dispatch(setActiveColumn(e.active.data.current?.element));
           }}
-          collisionDetection={closestCorners}
         >
           <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
             {activeWorkspace?.tasksGroups.length ? (
@@ -107,6 +114,30 @@ export const BoardView = ({ id }: { id: string }) => {
               <p aria-label='No tasks groups'>No tasks groups</p>
             )}
           </SortableContext>
+          {createPortal(
+            <DragOverlay>
+              {activeColumn && (
+                <DraggableTasksGroup
+                  element={activeColumn!}
+                  type='tasksGroup'
+                  tasksGroup={activeColumn!}
+                  id={activeColumn.id}
+                />
+              )}
+              {activeTask && (
+                <ReadModeActiveWrapper>
+                  <DraggableTask
+                    element={activeTask}
+                    type='task'
+                    task={activeTask!}
+                    id={activeTask.id}
+                    tasksGroup={activeColumn!}
+                  />
+                </ReadModeActiveWrapper>
+              )}
+            </DragOverlay>,
+            document.body
+          )}
         </DndContext>
       </BoardMain>
     </StyledBoardView>

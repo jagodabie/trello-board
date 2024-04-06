@@ -57,11 +57,11 @@ export const initialState: BoardInterface = {
       tasksGroups: [],
     },
   ],
-  activeItem: '',
+  activeTask: null,
   // TODO: change to null
   activeWorkspace: '1',
-  activeColumn: '',
-  activeTask: null,
+  activeColumn: null,
+  activeItem: '',
 };
 
 export const boardSlice = createSlice({

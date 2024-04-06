@@ -1,15 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { JSX } from 'react/jsx-runtime';
-import { styled } from 'styled-components';
-
-const DraggingFrame = styled.div`
-  border: 2px solid #fff;
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  width: 14rem;
-  height: 34px;
-`;
 
 export const withDnDElement = <T extends {}>(
   DraggableElement: React.ComponentType<T>
@@ -20,7 +11,7 @@ export const withDnDElement = <T extends {}>(
   ) {
     const {
       attributes,
-      isDragging,
+      // isDragging,
       listeners,
       setNodeRef,
       transform,
@@ -33,7 +24,7 @@ export const withDnDElement = <T extends {}>(
       transform: CSS.Transform.toString(transform),
       transition,
     };
-    // It does not work dragging the element when i uncomment this code
+    // TODO: It does not work dragging the element when i uncomment this code
     // if (isDragging) {
     //   return (
     //     <DraggingFrame>

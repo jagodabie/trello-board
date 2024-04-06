@@ -1,6 +1,6 @@
 import {
   setDoneTasks,
-  setActiveItem,
+  setActiveTask,
   setTasks,
 } from '../../store/slices/actions';
 import { TaskInterface, TasksGroupInterface } from '../../store/types';
@@ -28,7 +28,7 @@ export const useUpdateTaskProperty = (
         })
       );
       if (key !== 'done') {
-        dispatch(setActiveItem(''));
+        dispatch(setActiveTask(null));
       }
       if (key === 'done') {
         dispatch(setDoneTasks({ groupId: tasksGroup.id }));

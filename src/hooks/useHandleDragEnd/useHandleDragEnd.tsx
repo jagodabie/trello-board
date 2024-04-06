@@ -6,7 +6,7 @@ export const useHandleDragEnd = () => {
 
   return {
     handleDragEnd: () => {
-      dispatch(setActiveColumn(''));
+      dispatch(setActiveColumn(null));
       dispatch(setActiveTask(null));
     },
   };

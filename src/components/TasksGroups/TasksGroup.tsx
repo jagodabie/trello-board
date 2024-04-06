@@ -2,7 +2,7 @@ import { TasksGroupWrapper } from '.';
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
 import {
   deleteWorkspaceTasksGroup,
-  setActiveItem,
+  setActiveColumn,
   setTasks,
   updateTasksGroupName,
 } from '../../store/slices/actions';
@@ -23,7 +23,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
   const dispatch = useAppDispatch();
   const { id, name, tasks } = tasksGroup;
   const boardSlice = useAppSelector(({ board }) => board);
-  const { activeItem, activeColumn } = boardSlice;
+  const { activeColumn } = boardSlice;
 
   useEffect(() => {
     setHeight(tasks.length * 3 + 1);
@@ -32,7 +32,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
   return (
     <TasksGroupWrapper
       $height={height.toString()}
-      active={Number(activeColumn === id)}
+      active={Number(activeColumn?.id === id)}
     >
       <div
         role='heading'
@@ -40,8 +40,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
         aria-label='Task group header'
         className='tasks-list-header'
       >
-        {/* name, id */}
-        {id === activeItem ? (
+        {id === activeColumn?.id ? (
           <Textarea
             // TODO: add cases
             ariaLabel='Add list'
@@ -50,7 +49,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
             onBlur={(inputValue) => {
               if (!inputValue) return;
               dispatch(updateTasksGroupName(inputValue));
-              dispatch(setActiveItem(''));
+              dispatch(setActiveColumn(null));
             }}
           />
         ) : (
@@ -60,7 +59,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
             transparent={1}
             boardElementClass='tasksGroup'
             isActionVisible
-            onEdit={() => dispatch(setActiveItem(id))}
+            onEdit={() => dispatch(setActiveColumn(tasksGroup))}
             onDelete={() => {
               dispatch(deleteWorkspaceTasksGroup(id));
             }}
@@ -84,13 +83,6 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
                 tasksGroup={tasksGroup}
               />
             ))}
-
-          {/* TODO: fix that due to add opacity: 0 to element after action DnD 
-          {activeTask && (
-            {createPortal(<DragOverlay>
-            <Task task={activeTask} tasksGroup={tasksGroup} />
-            </DragOverlay>,  document.body )
-          )} */}
         </SortableContext>
       </div>
       <div

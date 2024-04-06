@@ -19,7 +19,7 @@ describe('updateWorkspaceName', () => {
             tasksGroups: [],
           },
         ],
-        activeItem: '',
+        activeTask: null,
         activeWorkspace: '2',
       },
     });
@@ -57,7 +57,7 @@ describe('deleteWorkspace', () => {
             tasksGroups: [],
           },
         ],
-        activeItem: '',
+        activeTask: null,
         activeWorkspace: '2',
       },
     });
@@ -85,7 +85,7 @@ describe('createWorkspace', () => {
             tasksGroups: [],
           },
         ],
-        activeItem: '',
+        activeTask: null,
         activeWorkspace: '2',
       },
     });
@@ -118,7 +118,7 @@ describe('createWorkspace', () => {
               tasksGroups: [],
             },
           ],
-          activeItem: '',
+          activeTask: null,
           activeWorkspace: '2',
         },
       });
