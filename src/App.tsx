@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { BoardView } from './pages/BoardView';
 import { Drawer } from '@mui/material';
 import { useState } from 'react';
-import { Navigation } from './components/Navigation/Navigation';
+import { Navigation } from './components/NavigationLeft/NavigationLeft';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState({

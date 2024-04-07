@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemText } from '@mui/material';
-import { NavigationInterface } from './Navigation.type';
+import { NavigationInterface } from './NavigationLeft.type';
 
 export const Navigation: React.FC<NavigationInterface> = ({
   toggleDrawer,

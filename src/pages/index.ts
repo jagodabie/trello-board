@@ -16,7 +16,6 @@ export const BoardMain = styled.div`
   justify-content: flex-start;
   padding: 0.3rem;
   height: 80vh;
-
   & > button {
     background: #000420;
     width: 14rem;

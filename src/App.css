@@ -1,10 +1,7 @@
 body {
   background-color: rgb(0, 4, 32, 0.85);
+  max-height: 100vh;
 }
 .App {
   text-align: center;
-  height: 95vh;
-}
-main {
-  height: 100%;
 }

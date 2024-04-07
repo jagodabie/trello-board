@@ -1,4 +1,4 @@
-import { Navigation } from './Navigation';
+import { Navigation } from './NavigationLeft';
 import { render } from '../../test-utils';
 import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
