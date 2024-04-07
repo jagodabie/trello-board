@@ -17,11 +17,11 @@ function App() {
   return (
     <div className='App'>
       <header>
-        <h1>My Trello Board</h1>
+        <p>My Trello Board / Further Navigation</p>
       </header>
 
       <main>
-        {/* <button onClick={toggleDrawer('left', true)}>Open Left</button> */}
+        <button onClick={toggleDrawer('left', true)}>Open Left</button>
         <Drawer
           anchor={'left'}
           open={menuOpen['left']}
@@ -41,9 +41,6 @@ function App() {
           <Route path='/' element={<BoardView id='1' />} />
         </Routes>
       </main>
-      <footer>
-        <p>© 2024 Trello Board. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
