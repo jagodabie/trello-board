@@ -16,5 +16,9 @@ export const StyledButton = styled.button<ButtonProps>`
   height: 100%;
   padding: 0.5rem 0;
 
-  color: ${({ className }) => (className ? 'background: #000420;' : '#fff')};
+  color: ${({ className }) =>
+    className
+      ? `  background: ${(props: { theme: { colors: { darkblue: string } } }) =>
+          props.theme.colors.darkblue};`
+      : '#fff'};
 `;

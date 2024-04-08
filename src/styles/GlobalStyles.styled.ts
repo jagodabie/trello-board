@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
 html,
 body,
 div,
@@ -99,11 +102,18 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 body {
   margin: 0;
   font-size: 15px;
-  background-color: rgb(0, 4, 32, 0.85);
-  max-height: 100vh;
+  background-color: ${({
+    theme: {
+      colors: { backgroundDarkBlue },
+    },
+  }) => backgroundDarkBlue};
+
+  height: 99vh;
+  overflow: hidden;
   font-family: monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -113,3 +123,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+`;
+
+export default GlobalStyle;

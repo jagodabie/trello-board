@@ -4,7 +4,8 @@ export const StyledBoardView = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 0.5rem;
+  padding: 0 2.5rem;
+  overflow-x: auto;
   height: 100%;
 `;
 export const BoardHeader = styled.div`
@@ -16,8 +17,9 @@ export const BoardMain = styled.div`
   justify-content: flex-start;
   padding: 0.3rem;
   height: 80vh;
+
   & > button {
-    background: #000420;
+    background: ${(props) => props.theme.colors.darkblue};
     width: 14rem;
     height: 2.6rem;
     border-radius: 8px;

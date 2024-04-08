@@ -8,7 +8,7 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  background: #000420;
+  background: ${(props) => props.theme.colors.darkblue};
   width: 14rem;
   margin: 0.2rem;
   max-height: 100%;
