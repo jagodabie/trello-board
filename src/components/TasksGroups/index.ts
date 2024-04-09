@@ -13,7 +13,12 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
   margin: 0.2rem;
   max-height: 100%;
   height: fit-content;
-  outline: ${({ active }) => (active ? 'solid 1px #fff' : 'none')};
+  outline: ${({
+    active,
+    theme: {
+      borders: { white },
+    },
+  }) => (active ? white : 'none')};
   box-shadow: ${({ active }) =>
     active ? '0px 0px 8px rgba(255, 255, 255, 0.5)' : 'none'};
 
@@ -27,7 +32,11 @@ export const TasksGroupWrapper = styled.div<TasksGroupWrapperProps>`
 
       textarea {
         &: focus {
-          outline: solid 1px;
+          outline:  ${({
+            theme: {
+              borders: { white },
+            },
+          }) => white};
           border: none;
           border-radius: 4px;
         }

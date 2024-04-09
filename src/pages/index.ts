@@ -4,19 +4,21 @@ export const StyledBoardView = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 2.5rem;
   overflow-x: auto;
   height: 100%;
+  width: 100vw;
 `;
 export const BoardHeader = styled.div`
   width: 100%;
   text-align: left;
+  background: ${(props) => props.theme.colors.lightblue};
 `;
 export const BoardMain = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 0.3rem;
   height: 80vh;
+  padding-bottom: 3vh;
 
   & > button {
     background: ${(props) => props.theme.colors.darkblue};

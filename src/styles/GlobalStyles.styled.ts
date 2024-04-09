@@ -112,6 +112,12 @@ body {
     },
   }) => backgroundDarkBlue};
 
+  color: ${({
+    theme: {
+      colors: { white },
+    },
+  }) => white};
+
   height: 99vh;
   overflow: hidden;
   font-family: monospace;

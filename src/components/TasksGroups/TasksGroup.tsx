@@ -40,7 +40,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
         aria-label='Task group header'
         className='tasks-list-header'
       >
-        {id === activeColumn?.id ? (
+        {!!(id === activeColumn?.id) ? (
           <Textarea
             // TODO: add cases
             ariaLabel='Add list'
@@ -72,7 +72,7 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
         aria-label='Tasks group main'
       >
         <SortableContext items={tasks}>
-          {tasks?.length &&
+          {!!tasks?.length &&
             tasks.map((task) => (
               <DraggableTask
                 element={task}

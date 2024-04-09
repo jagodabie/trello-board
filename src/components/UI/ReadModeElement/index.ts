@@ -6,12 +6,11 @@ interface ReadModeElementWrapperProps {
   active?: number;
   $transparent?: number;
 }
-
+// TODO : change style text box style changed
 export const ReadModeElementWrapper = styled.div<ReadModeElementWrapperProps>`
   justify-content: space-between;
   background-color: ${(props) =>
     props?.$transparent ? 'transparent' : '#0C0F29'};
-  color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   display: flex;
@@ -21,7 +20,12 @@ export const ReadModeElementWrapper = styled.div<ReadModeElementWrapperProps>`
   line-height: 20px;
   margin: 4px;
   padding-bottom: 14px;
-  border: ${({ active }) => (active ? 'solid 1px #fff' : 'none')};
+  border: ${({
+    active,
+    theme: {
+      borders: { white },
+    },
+  }) => (active ? white : 'none')};
   box-shadow: ${({ active }) =>
     active ? '0px 0px 8px rgba(255, 255, 255, 0.5)' : 'none'};
 

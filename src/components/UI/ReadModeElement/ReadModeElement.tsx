@@ -28,10 +28,15 @@ export const ReadModeElement = ({
       $header={header || 0}
       $transparent={transparent}
     >
-      <div className={`${boardElementClass}-name`} role='button' tabIndex={0}>
+      <div
+        className={`${boardElementClass}-name`}
+        role='button'
+        tabIndex={0}
+        onClick={transparent ? onEdit : () => {}}
+      >
         {name}
       </div>
-      {isActionVisible && (
+      {isActionVisible && !transparent && (
         <div className={`${boardElementClass}-actions`} role='group'>
           <div role='button' aria-label='edit' onClick={onEdit}>
             <Edit />
