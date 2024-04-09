@@ -69,11 +69,16 @@ export const BoardView = ({ id }: { id: string }) => {
             name='title'
             ariaLabel='title'
             onBlur={(inputValue) => {
-              dispatch(setActiveTask(null));
+              dispatch(setActiveItem(''));
               if (!inputValue) return;
               dispatch(updateWorkspaceName(inputValue));
             }}
-            header={1}
+            customStyle={{
+              maxWidth: '100%',
+              backgroundColor: 'transparent',
+              fontWeight: '1000',
+              fontSize: '25px',
+            }}
             defaultValue={activeWorkspace?.name}
           />
         ) : (
@@ -82,7 +87,13 @@ export const BoardView = ({ id }: { id: string }) => {
             header={1}
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
-            isActionVisible
+            isActionVisible={false}
+            customStyles={{
+              fontWeight: '800',
+              fontSize: '25px',
+              height: '24px',
+              maxWidth: '100%',
+            }}
             onEdit={() => dispatch(setActiveItem(id))}
             onDelete={() =>
               dispatch(deleteWorkspace(activeWorkspace?.id || ''))

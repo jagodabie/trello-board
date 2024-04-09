@@ -4,18 +4,18 @@ import { Edit } from '../../../assets/icons/Edit';
 
 export const ReadModeElement = ({
   name,
-  header,
+  customStyles,
   active,
   boardElementClass,
-  transparent = 0,
   isActionVisible = false,
   onEdit,
   onDelete,
 }: {
   name: string;
+  customStyles?: Record<string, string>;
   header?: number;
   active?: number;
-  transparent?: number;
+
   boardElementClass: string;
   isActionVisible?: boolean;
   onEdit?: () => void;
@@ -25,18 +25,17 @@ export const ReadModeElement = ({
     <ReadModeElementWrapper
       active={active || 0}
       className={boardElementClass || ''}
-      $header={header || 0}
-      $transparent={transparent}
+      $customStyles={customStyles}
     >
       <div
         className={`${boardElementClass}-name`}
         role='button'
         tabIndex={0}
-        onClick={transparent ? onEdit : () => {}}
+        onClick={!isActionVisible ? onEdit : () => {}}
       >
         {name}
       </div>
-      {isActionVisible && !transparent && (
+      {isActionVisible && (
         <div className={`${boardElementClass}-actions`} role='group'>
           <div role='button' aria-label='edit' onClick={onEdit}>
             <Edit />

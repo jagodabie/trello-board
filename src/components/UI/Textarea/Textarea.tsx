@@ -6,9 +6,8 @@ import { TextareaWrapper } from '.';
 interface TextareaProps {
   placeholder: string;
   name?: string;
-  header?: number;
+  customStyle?: Record<string, string>;
   ariaLabel: string;
-  transparent?: number;
   defaultValue?: string | number;
   onBlur?: (textareaValue?: string) => void;
 }
@@ -16,11 +15,10 @@ interface TextareaProps {
 export const Textarea: React.FC<TextareaProps> = ({
   placeholder,
   name,
-  header,
   ariaLabel,
   defaultValue,
-  transparent,
   onBlur,
+  customStyle,
 }) => {
   const [textareaValue, setTextareaValue] = useState<string>(
     defaultValue?.toString() || ''
@@ -29,28 +27,37 @@ export const Textarea: React.FC<TextareaProps> = ({
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
   };
-  const maxWidth = header ? 'none' : !name ? '14rem' : '12rem';
+
+  const baseStyle = {
+    color: 'inherit',
+    resize: 'none',
+    border: 'none',
+    backgroundColor: 'inherit',
+    width: '100%',
+    overflow: 'hidden',
+    fontSize: '15px',
+    marginLeft: '2px',
+    lineHeight: '20px',
+    wordBreak: 'break-word',
+    maxWidth: '14rem',
+  } as const;
+
   return (
-    <TextareaWrapper $header={header} $transparent={transparent}>
+    <TextareaWrapper $transparent={Number(!!customStyle?.backgroundColor)}>
       <TextareaAutosize
         name={name}
         value={textareaValue}
         placeholder={placeholder}
         aria-label={ariaLabel}
         onChange={handleTextareaChange}
-        style={{
-          color: '#fff',
-          backgroundColor: !name ? 'transparent' : '#0C0F29',
-          resize: 'none',
-          border: 'none',
-          width: '100%',
-          overflow: 'hidden',
-          fontSize: '15px',
-          marginLeft: '2px',
-          maxWidth: `${maxWidth}`,
-          lineHeight: '20px',
-          wordBreak: 'break-word',
-        }}
+        style={
+          customStyle
+            ? {
+                ...baseStyle,
+                ...customStyle,
+              }
+            : baseStyle
+        }
         onBlur={onBlur ? () => onBlur(textareaValue) : undefined}
       />
     </TextareaWrapper>

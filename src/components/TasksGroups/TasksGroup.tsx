@@ -56,7 +56,6 @@ export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
           <ReadModeElement
             key={id}
             name={name}
-            transparent={1}
             boardElementClass='tasksGroup'
             isActionVisible
             onEdit={() => dispatch(setActiveColumn(tasksGroup))}

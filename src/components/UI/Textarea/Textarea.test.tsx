@@ -43,12 +43,7 @@ describe('textarea', () => {
   });
   test('rerenders proper style when header prop is given', () => {
     render(
-      <Textarea
-        placeholder='Test Placeholder'
-        name='test'
-        header={1}
-        ariaLabel='title'
-      />
+      <Textarea placeholder='Test Placeholder' name='test' ariaLabel='title' />
     );
     const textareaElement = screen.getByPlaceholderText('Test Placeholder');
     expect(textareaElement).toHaveStyle({
