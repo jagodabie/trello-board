@@ -33,11 +33,14 @@ import { Task } from '../components/Task/Task';
 import { Button } from '../components/UI/Button/Button';
 import { Plus } from '../assets/icons/Plus';
 import { generateId } from '../utils';
+import { useParams } from 'react-router-dom';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
 
-export const BoardView = ({ id }: { id: string }) => {
+export const BoardView = () => {
+  const { id } = useParams();
+
   const dispatch = useAppDispatch();
   const { activeTask, activeColumn, workspaces, activeItem } = useAppSelector(
     (state) => state.board
@@ -94,7 +97,7 @@ export const BoardView = ({ id }: { id: string }) => {
               height: '24px',
               maxWidth: '100%',
             }}
-            onEdit={() => dispatch(setActiveItem(id))}
+            onEdit={() => dispatch(setActiveItem(id!))}
             onDelete={() =>
               dispatch(deleteWorkspace(activeWorkspace?.id || ''))
             }
@@ -102,7 +105,7 @@ export const BoardView = ({ id }: { id: string }) => {
         )}
       </BoardHeader>
       <BoardMain role='main' aria-label='Board main'>
-        {activeWorkspace?.tasksGroups?.length && (
+        {!!activeWorkspace?.tasksGroups?.length && (
           <DndContext
             sensors={sensors}
             onDragOver={handleOnDragOver}

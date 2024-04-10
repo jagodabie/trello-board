@@ -4,6 +4,7 @@ import { render } from '../test-utils';
 import { updateWorkspaceName } from '../store/slices/actions';
 import reducer from '../store/slices/boardSlice';
 
+// TODO: fix test
 describe('BoardView', () => {
   test('BoardView renders correctly with props in title read mode', async () => {
     const prevState = {
@@ -29,7 +30,7 @@ describe('BoardView', () => {
       },
     };
 
-    render(<BoardView id='1' />, { preloadedState: prevState.preloadedState });
+    render(<BoardView />, { preloadedState: prevState.preloadedState });
 
     const editButton = screen.getByRole('header', { name: 'Board header' });
     expect(editButton).toBeInTheDocument();
@@ -79,7 +80,7 @@ describe('BoardView', () => {
       },
     };
 
-    render(<BoardView id='1' />, { preloadedState: prevState.preloadedState });
+    render(<BoardView />, { preloadedState: prevState.preloadedState });
 
     const input = screen.getByRole('textbox', { name: 'title' });
     expect(input).toBeInTheDocument();
@@ -111,7 +112,7 @@ describe('BoardView', () => {
         },
       },
     };
-    render(<BoardView id='1' />, { preloadedState: prevState.preloadedState });
+    render(<BoardView />, { preloadedState: prevState.preloadedState });
     const mainElement = screen.getByRole('main', { name: 'Board main' });
     expect(mainElement).toBeInTheDocument();
   });
@@ -132,7 +133,7 @@ describe('BoardView', () => {
         },
       },
     };
-    render(<BoardView id='1' />, { preloadedState: prevState.preloadedState });
+    render(<BoardView />, { preloadedState: prevState.preloadedState });
     const mainElement = screen.getByRole('main', { name: 'Board main' });
     const paragraphElement = screen.getByText('No tasks groups');
 
@@ -166,7 +167,7 @@ describe('BoardView', () => {
         },
       },
     };
-    render(<BoardView id='1' />, { preloadedState: prevState.preloadedState });
+    render(<BoardView />, { preloadedState: prevState.preloadedState });
     const mainElement = screen.getByRole('main', { name: 'Board main' });
     expect(mainElement).toBeInTheDocument();
   });

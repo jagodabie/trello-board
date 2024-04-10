@@ -65,7 +65,7 @@ function App() {
 
           <Routes>
             {/* TODO: /board/:id */}
-            <Route path='/board' element={<BoardView id='1' />} />
+            <Route path='/board/:id' element={<BoardView />} />
           </Routes>
         </AppMain>
       </AppContainer>
