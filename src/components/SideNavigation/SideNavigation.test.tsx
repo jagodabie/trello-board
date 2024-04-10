@@ -1,4 +1,4 @@
-import { Navigation } from './NavigationLeft';
+import { SideNavigation } from './SideNavigation';
 import { render } from '../../test-utils';
 import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
@@ -8,7 +8,7 @@ describe('Navigation', () => {
 
   it('should render without crashing', () => {
     render(
-      <Navigation
+      <SideNavigation
         toggleDrawer={mockToggleDrawer}
         anchor='left'
         boardsList={[]}
@@ -20,7 +20,7 @@ describe('Navigation', () => {
 
   it('should call toggleDrawer when clicked', async () => {
     render(
-      <Navigation
+      <SideNavigation
         toggleDrawer={mockToggleDrawer}
         anchor='left'
         boardsList={[]}
@@ -35,10 +35,13 @@ describe('Navigation', () => {
 
   it('should render list items when boardsList is not empty', () => {
     render(
-      <Navigation
+      <SideNavigation
         toggleDrawer={mockToggleDrawer}
         anchor='left'
-        boardsList={['Board 1', 'Board 2']}
+        boardsList={[
+          { id: '1', name: 'Board 1' },
+          { id: '2', name: 'Board 2' },
+        ]}
       />
     );
     const listItems = screen.getAllByRole('button');
@@ -48,7 +51,7 @@ describe('Navigation', () => {
 
   it('should render "No Boards Available" when boardsList is empty', () => {
     render(
-      <Navigation
+      <SideNavigation
         toggleDrawer={mockToggleDrawer}
         anchor='left'
         boardsList={[]}

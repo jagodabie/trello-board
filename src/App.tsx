@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { BoardView } from './pages/BoardView';
 import { Drawer } from '@mui/material';
 import { useState } from 'react';
-import { Navigation } from './components/NavigationLeft/NavigationLeft';
+import { SideNavigation } from './components/SideNavigation/SideNavigation';
 import { Button } from './components/UI/Button/Button';
 import { globalTheme as theme } from './styles/globalTheme';
 import GlobalStyle from './styles/GlobalStyles.styled';
@@ -15,11 +15,13 @@ import {
   SideElementNavigation,
 } from './index.styled';
 import AppProviders from './providers/AppProvider';
+import { useAppSelector } from './hooks/useAppDispatch';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState({
     left: false,
   });
+  const { workspaces } = useAppSelector((state) => state.board);
 
   const toggleDrawer = (anchor: string, open: boolean) => () => {
     setMenuOpen({ ...menuOpen, [anchor]: open });
@@ -36,13 +38,23 @@ function App() {
             anchor={'left'}
             open={menuOpen['left']}
             onClose={toggleDrawer('left', false)}
+            sx={{
+              '& .MuiDrawer-paper': {
+                width: '250px',
+                backgroundColor: theme.colors.darkblue,
+                color: theme.colors.white,
+              },
+            }}
           >
-            <Navigation
+            <SideNavigation
               anchor='left'
               toggleDrawer={
                 toggleDrawer as (anchor: string, open: boolean) => () => void
               }
-              boardsList={['Board 1', 'Board 2', 'Board 3']}
+              boardsList={workspaces.map((workspace) => ({
+                id: workspace.id,
+                name: workspace.name,
+              }))}
             />
           </Drawer>
           <SideElementNavigation>
@@ -53,7 +65,7 @@ function App() {
 
           <Routes>
             {/* TODO: /board/:id */}
-            <Route path='/' element={<BoardView id='1' />} />
+            <Route path='/board' element={<BoardView id='1' />} />
           </Routes>
         </AppMain>
       </AppContainer>
