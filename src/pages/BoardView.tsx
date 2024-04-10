@@ -20,6 +20,7 @@ import {
   setActiveColumn,
   setActiveItem,
   setActiveTask,
+  setActiveWorkspace,
   updateWorkspaceName,
 } from '../store/slices/actions';
 import { TasksGroup } from '../components/TasksGroups/TasksGroup';
@@ -34,6 +35,7 @@ import { Button } from '../components/UI/Button/Button';
 import { Plus } from '../assets/icons/Plus';
 import { generateId } from '../utils';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
@@ -60,12 +62,13 @@ export const BoardView = () => {
       },
     })
   );
+  useEffect(() => {
+    dispatch(setActiveWorkspace(id!));
+  }, [dispatch, id]);
 
   return (
     <StyledBoardView>
       <BoardHeader role='header' aria-label='Board header'>
-        {/* TODO: Style for task but separate style for header */}
-
         {activeWorkspace?.id === activeItem ? (
           <Textarea
             placeholder='Add a title'
