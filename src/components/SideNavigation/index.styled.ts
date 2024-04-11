@@ -14,3 +14,35 @@ export const StyledListItem = styled(ListItem)(({ theme }) => ({
     background: theme.colors.sideBarColorHover,
   },
 }));
+
+export const ButtonWrapper = styled.div`
+  height: 40px;
+  box-shadow: ${({
+    theme: {
+      boxShadow: { white },
+    },
+  }) => white};
+  margin-left: 3px;
+  border-radius: 8px;
+  width: calc(100% - 6px);
+  &:hover,
+  &:focus {
+    background: ${({
+      theme: {
+        colors: { sideBarColorHover },
+      },
+    }) => sideBarColorHover};
+  }
+`;
+
+export const SideNavigationHeader = styled.h2`
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: 400;
+  font-size: 20px;
+  box-shadow: ${({
+    theme: {
+      boxShadow: { white },
+    },
+  }) => white};
+`;

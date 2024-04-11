@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect, useRef } from 'react';
 
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextareaWrapper } from '.';
@@ -24,9 +24,14 @@ export const Textarea: React.FC<TextareaProps> = ({
     defaultValue?.toString() || ''
   );
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
   };
+  useEffect(() => {
+    textareaRef.current?.focus();
+  }, []);
 
   const baseStyle = {
     color: 'inherit',
@@ -46,6 +51,8 @@ export const Textarea: React.FC<TextareaProps> = ({
     <TextareaWrapper $transparent={Number(!!customStyle?.backgroundColor)}>
       <TextareaAutosize
         name={name}
+        required
+        ref={textareaRef}
         value={textareaValue}
         placeholder={placeholder}
         aria-label={ariaLabel}

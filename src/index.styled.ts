@@ -38,15 +38,15 @@ export const SideElementNavigation = styled.div`
 `;
 
 export const AppHeader = styled.header`
-  background: ${({
-    theme: {
-      colors: { darkblueHover },
-    },
-  }) => darkblueHover};
+  background: ${({ theme }) => theme.background};
   width: 100%;
   height: 40px;
-  border-bottom: 1px solid #cad1e3;
-  box-shadow: 0px 15px 10px -15px #111;
+
+  box-shadow: ${({
+    theme: {
+      boxShadow: { white },
+    },
+  }) => white};
 `;
 
 export const AppMain = styled.main`

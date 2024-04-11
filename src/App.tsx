@@ -16,12 +16,15 @@ import {
 } from './index.styled';
 import AppProviders from './providers/AppProvider';
 import { useAppSelector } from './hooks/useAppDispatch';
+import { Playground } from './pages/Playground/Playground';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState({
     left: false,
   });
-  const { workspaces } = useAppSelector((state) => state.board);
+  const { workspaces, activeWorkspace } = useAppSelector(
+    (state) => state.board
+  );
 
   const toggleDrawer = (anchor: string, open: boolean) => () => {
     setMenuOpen({ ...menuOpen, [anchor]: open });
@@ -51,6 +54,7 @@ function App() {
               toggleDrawer={
                 toggleDrawer as (anchor: string, open: boolean) => () => void
               }
+              id={activeWorkspace || ''}
               boardsList={workspaces.map((workspace) => ({
                 id: workspace.id,
                 name: workspace.name,
@@ -64,8 +68,8 @@ function App() {
           </SideElementNavigation>
 
           <Routes>
-            {/* TODO: /board/:id */}
             <Route path='/board/:id' element={<BoardView />} />
+            <Route path='/playground' element={<Playground />}></Route>
           </Routes>
         </AppMain>
       </AppContainer>

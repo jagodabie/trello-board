@@ -71,13 +71,17 @@ export const BoardView = () => {
       <BoardHeader role='header' aria-label='Board header'>
         {activeWorkspace?.id === activeItem ? (
           <Textarea
-            placeholder='Add a title'
+            placeholder='Add a workspace title'
             name='title'
             ariaLabel='title'
             onBlur={(inputValue) => {
-              dispatch(setActiveItem(''));
-              if (!inputValue) return;
+              if (!inputValue) {
+                // TODO: make it that better
+                alert('Field cannot be empty!');
+                return;
+              }
               dispatch(updateWorkspaceName(inputValue));
+              dispatch(setActiveItem(''));
             }}
             customStyle={{
               maxWidth: '100%',
@@ -90,7 +94,6 @@ export const BoardView = () => {
         ) : (
           <ReadModeElement
             key={activeWorkspace?.id}
-            header={1}
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
             isActionVisible={false}

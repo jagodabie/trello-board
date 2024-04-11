@@ -9,6 +9,9 @@ export const globalTheme = {
     sideBarColor: 'rgb(0, 0, 21,0.95)',
     sideBarColorHover: 'rgb(74 74 107 / 79%)',
   },
+  boxShadow: {
+    white: '0px 0px 8px rgba(255, 255, 255, 0.5)',
+  },
   borders: {
     white: 'solid 1px #fff',
   },

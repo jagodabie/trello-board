@@ -35,5 +35,9 @@ export const ReadModeActiveWrapper = styled.div<{
   border: solid 0.1px #fff;
   border-radius: 8px;
   outline: solid 0.5px #fff;
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+  box-shadow: ${({
+    theme: {
+      boxShadow: { white },
+    },
+  }) => white};
 `;
