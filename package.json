@@ -1,6 +1,6 @@
 {
   "homepage": "https://jagodabie.github.io/trello-board/",
-  "name": "kanban-board",
+  "name": "trello-board",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
