@@ -35,13 +35,16 @@ import { Button } from '../components/UI/Button/Button';
 import { Plus } from '../assets/icons/Plus';
 import { generateId } from '../utils';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { withRefTextarea } from '../hoc/withRefsTextarea';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
+const TextareaWithRef = withRefTextarea(Textarea);
 
 export const BoardView = () => {
   const { id } = useParams();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const dispatch = useAppDispatch();
   const { activeTask, activeColumn, workspaces, activeItem } = useAppSelector(
@@ -70,11 +73,12 @@ export const BoardView = () => {
     <StyledBoardView>
       <BoardHeader role='header' aria-label='Board header'>
         {activeWorkspace?.id === activeItem ? (
-          <Textarea
+          <TextareaWithRef
             placeholder='Add a workspace title'
             name='title'
             ariaLabel='title'
-            onBlur={(inputValue) => {
+            forwardedRef={textareaRef}
+            onBlur={(inputValue?: string) => {
               if (!inputValue) {
                 // TODO: make it that better
                 alert('Field cannot be empty!');

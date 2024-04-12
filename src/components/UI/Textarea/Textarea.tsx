@@ -3,7 +3,7 @@ import React, { useState, ChangeEvent, useEffect, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextareaWrapper } from '.';
 
-interface TextareaProps {
+export interface TextareaProps {
   placeholder: string;
   name?: string;
   customStyle?: Record<string, string>;
@@ -12,26 +12,26 @@ interface TextareaProps {
   onBlur?: (textareaValue?: string) => void;
 }
 
-export const Textarea: React.FC<TextareaProps> = ({
+export const Textarea: React.FC<
+  TextareaProps & {
+    forwardedRef?: React.Ref<HTMLTextAreaElement>;
+  }
+> = ({
   placeholder,
   name,
   ariaLabel,
   defaultValue,
   onBlur,
   customStyle,
+  forwardedRef,
 }) => {
   const [textareaValue, setTextareaValue] = useState<string>(
     defaultValue?.toString() || ''
   );
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
   };
-  useEffect(() => {
-    textareaRef.current?.focus();
-  }, []);
 
   const baseStyle = {
     color: 'inherit',
@@ -52,7 +52,7 @@ export const Textarea: React.FC<TextareaProps> = ({
       <TextareaAutosize
         name={name}
         required
-        ref={textareaRef}
+        ref={forwardedRef ?? null}
         value={textareaValue}
         placeholder={placeholder}
         aria-label={ariaLabel}
