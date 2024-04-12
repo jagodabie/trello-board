@@ -4,6 +4,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { boardSlice } from './store/slices';
+import { globalTheme as theme } from './styles/globalTheme';
+import AppProviders from './providers/AppProvider';
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   preloadedState?: Record<string, unknown>;
   store?: ReturnType<typeof configureStore>;
@@ -22,7 +24,9 @@ const customRender = (
 ) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <Provider store={store}>
-      <MemoryRouter>{children}</MemoryRouter>
+      <AppProviders theme={theme}>
+        <MemoryRouter>{children}</MemoryRouter>
+      </AppProviders>
     </Provider>
   );
 
