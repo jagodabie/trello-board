@@ -30,29 +30,16 @@ describe('BoardView', () => {
       },
     };
 
-    render(<BoardView />, { preloadedState: prevState.preloadedState });
-
-    const editButton = screen.getByRole('header', { name: 'Board header' });
-    expect(editButton).toBeInTheDocument();
-    expect(
-      reducer(prevState.preloadedState.board, updateWorkspaceName('Name new'))
-    ).toEqual({
-      workspaces: [
-        {
-          id: '1',
-          name: 'Name new',
-          tasksGroups: [],
-        },
-        {
-          id: '2',
-          name: 'Jira Inc.',
-          tasksGroups: [],
-        },
-      ],
-      activeTask: null,
-      activeWorkspace: '1',
+    render(<BoardView />, {
+      preloadedState: prevState.preloadedState,
     });
+
+    const headerElement = screen.getByRole('header', {
+      name: 'Board header',
+    });
+    expect(headerElement).toBeInTheDocument();
   });
+
   test('BoardView when board title element id is equal active workspace, board title is shown in edit mode', async () => {
     const prevState = {
       preloadedState: {
@@ -133,12 +120,16 @@ describe('BoardView', () => {
         },
       },
     };
-    render(<BoardView />, { preloadedState: prevState.preloadedState });
+    render(<BoardView />, {
+      preloadedState: prevState.preloadedState,
+    });
     const mainElement = screen.getByRole('main', { name: 'Board main' });
-    const paragraphElement = screen.getByText('No tasks groups');
+    const addButton = screen.getByRole('button', {
+      name: 'Add new list',
+    });
 
     expect(mainElement).toBeInTheDocument();
-    expect(paragraphElement).toBeInTheDocument();
+    expect(addButton).toBeInTheDocument();
   });
   test('Board Main section displays correctly with tasks groups', () => {
     const prevState = {

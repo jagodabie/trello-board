@@ -37,7 +37,7 @@ export const SideNavigation: React.FC<SideNavigationInterface> = ({
       {boardsList?.length && (
         <>
           <SideNavigationHeader>My boards</SideNavigationHeader>
-          <List>
+          <List role='navigation'>
             {boardsList.map(({ id, name }) => (
               <StyledListItem key={id}>
                 <NavbarLink to={`/board/${id}`}>

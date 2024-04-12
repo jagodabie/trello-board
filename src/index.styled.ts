@@ -37,7 +37,9 @@ export const SideElementNavigation = styled.div`
   width: 20px;
 `;
 
-export const AppHeader = styled.header`
+export const AppHeader = styled.header.attrs(() => ({
+  'aria-label': 'App Header',
+}))`
   background: ${({ theme }) => theme.background};
   width: 100%;
   height: 40px;

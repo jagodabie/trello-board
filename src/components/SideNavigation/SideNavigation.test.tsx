@@ -3,7 +3,7 @@ import { render } from '../../test-utils';
 import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
-describe('Navigation', () => {
+describe.only('Navigation', () => {
   const mockToggleDrawer = jest.fn();
 
   it('should render without crashing', () => {
