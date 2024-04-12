@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect, useRef } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextareaWrapper } from '.';
