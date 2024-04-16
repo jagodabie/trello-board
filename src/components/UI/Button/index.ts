@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 import { ButtonProps } from './index.type';
 
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledButton = styled.button.attrs((props) => ({
+  type: props.type || 'button',
+  'aria-label': props['aria-label'],
+}))<ButtonProps>`
   border: none;
   display: flex;
   justify-content: center;

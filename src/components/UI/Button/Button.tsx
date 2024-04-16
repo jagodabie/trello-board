@@ -7,6 +7,7 @@ export const Button: React.FC<ButtonProps> = ({
   text,
   disabled,
   buttonClass,
+  ariaLabel,
 }) => {
   return (
     <StyledButton
@@ -15,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={buttonClass}
+      aria-label={ariaLabel}
     >
       <span className='button-icon'>{iconComponent}</span>
       <span className='button-text'>{text}</span>

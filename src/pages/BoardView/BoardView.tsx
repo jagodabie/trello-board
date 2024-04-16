@@ -3,10 +3,10 @@ import {
   BoardMain,
   ReadModeActiveWrapper,
   StyledBoardView,
-} from '.';
-import { ReadModeElement } from '../components/UI/ReadModeElement/ReadModeElement';
-import { useAppDispatch, useAppSelector } from '../hooks/useAppDispatch';
-import { Textarea } from '../components/UI/Textarea/Textarea';
+} from '..';
+import { ReadModeElement } from '../../components/UI/ReadModeElement/ReadModeElement';
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
+import { Textarea } from '../../components/UI/Textarea/Textarea';
 import {
   DndContext,
   DragOverlay,
@@ -22,21 +22,21 @@ import {
   setActiveTask,
   setActiveWorkspace,
   updateWorkspaceName,
-} from '../store/slices/actions';
-import { TasksGroup } from '../components/TasksGroups/TasksGroup';
-import { useHandleDragEnd } from '../hooks/useHandleDragEnd/useHandleDragEnd';
+} from '../../store/slices/actions';
+import { TasksGroup } from '../../components/TasksGroups/TasksGroup';
+import { useHandleDragEnd } from '../../hooks/useHandleDragEnd/useHandleDragEnd';
 import { SortableContext } from '@dnd-kit/sortable';
-import { withDnDElement } from '../hoc/withDnDElement';
-import { TasksGroupInterface } from '../store/types';
-import { useHandleOnDragOver } from '../hooks/useHandleOnDragOver/useHandleOnDragOver';
+import { withDnDElement } from '../../hoc/withDnDElement';
+import { TasksGroupInterface } from '../../store/types';
+import { useHandleOnDragOver } from '../../hooks/useHandleOnDragOver/useHandleOnDragOver';
 import { createPortal } from 'react-dom';
-import { Task } from '../components/Task/Task';
-import { Button } from '../components/UI/Button/Button';
-import { Plus } from '../assets/icons/Plus';
-import { generateId } from '../utils';
+import { Task } from '../../components/Task/Task';
+import { Button } from '../../components/UI/Button/Button';
+import { Plus } from '../../assets/icons/Plus';
+import { generateId } from '../../utils';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
-import { withRefTextarea } from '../hoc/withRefsTextarea';
+import { withRefTextarea } from '../../hoc/withRefsTextarea';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);

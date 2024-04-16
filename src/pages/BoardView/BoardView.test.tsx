@@ -1,8 +1,10 @@
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import { BoardView } from './BoardView';
-import { render } from '../test-utils';
-import { updateWorkspaceName } from '../store/slices/actions';
-import reducer from '../store/slices/boardSlice';
+import { render } from '../../test-utils';
+import { updateWorkspaceName } from '../../store/slices/actions';
+import reducer from '../../store/slices/boardSlice';
+import { SideNavigation } from '../../components/SideNavigation/SideNavigation';
+import userEvent from '@testing-library/user-event';
 
 // TODO: fix test
 describe('BoardView', () => {

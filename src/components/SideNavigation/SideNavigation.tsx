@@ -15,7 +15,7 @@ import {
   setActiveItem,
   setActiveWorkspace,
 } from '../../store/slices/actions';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
 import { Button } from '../UI/Button/Button';
 import { ReadModeElement } from '../UI/ReadModeElement/ReadModeElement';
 import { useNavigate } from 'react-router-dom';
@@ -23,10 +23,10 @@ import { useNavigate } from 'react-router-dom';
 export const SideNavigation: React.FC<SideNavigationInterface> = ({
   toggleDrawer,
   anchor,
-  boardsList,
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { workspaces } = useAppSelector((state) => state.board);
 
   return (
     <div
@@ -34,11 +34,11 @@ export const SideNavigation: React.FC<SideNavigationInterface> = ({
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      {boardsList?.length && (
+      {!!workspaces?.length && (
         <>
           <SideNavigationHeader>My boards</SideNavigationHeader>
           <List role='navigation'>
-            {boardsList.map(({ id, name }) => (
+            {workspaces.map(({ id, name }) => (
               <StyledListItem key={id}>
                 <NavbarLink to={`/board/${id}`}>
                   <Avatar
@@ -65,6 +65,7 @@ export const SideNavigation: React.FC<SideNavigationInterface> = ({
       )}
       <ButtonWrapper>
         <Button
+          aria-label='Add Board'
           text={`Add Workspace`}
           iconComponent={<Plus color='#fff' />}
           onClick={() => {
@@ -73,7 +74,7 @@ export const SideNavigation: React.FC<SideNavigationInterface> = ({
             dispatch(
               createWorkspace({
                 id,
-                name: '',
+                name: 'New Workspace',
                 tasksGroups: [],
               })
             );
