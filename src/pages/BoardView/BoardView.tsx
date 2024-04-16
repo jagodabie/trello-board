@@ -65,10 +65,10 @@ export const BoardView = () => {
       },
     })
   );
+
   useEffect(() => {
     dispatch(setActiveWorkspace(id!));
   }, [dispatch, id]);
-
   return (
     <StyledBoardView>
       <BoardHeader role='header' aria-label='Board header'>

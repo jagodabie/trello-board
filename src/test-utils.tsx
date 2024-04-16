@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { boardSlice } from './store/slices';
@@ -9,12 +9,14 @@ import AppProviders from './providers/AppProvider';
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   preloadedState?: Record<string, unknown>;
   store?: ReturnType<typeof configureStore>;
+  path?: string;
 }
 
 const customRender = (
   ui: ReactElement,
   {
     preloadedState = {},
+    path = '/',
     store = configureStore({
       reducer: { board: boardSlice.reducer },
       preloadedState,
@@ -25,7 +27,12 @@ const customRender = (
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <Provider store={store}>
       <AppProviders theme={theme}>
-        <MemoryRouter>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route path='/board/:id' element={ui} />
+          </Routes>
+          {children}
+        </MemoryRouter>
       </AppProviders>
     </Provider>
   );
