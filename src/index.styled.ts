@@ -6,8 +6,7 @@ export const AppContainer = styled.div`
 
 export const SideButtonWrapper = styled.div`
   position: fixed;
-  top: 50px;
-  left: 5px;
+  top: 40px;
   button {
     background: ${({
       theme: {
@@ -34,7 +33,9 @@ export const SideElementNavigation = styled.div`
     },
   }) => darkblueHover};
   height: 100vh;
-  width: 20px;
+  width: 5px;
+  top: 40px;
+  position: fixed;
 `;
 
 export const AppHeader = styled.header.attrs(() => ({
