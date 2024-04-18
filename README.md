@@ -1,6 +1,25 @@
-# Getting Started with Create React App
+# Trello Board Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a clone of the popular task management application Trello, built with React and Redux. It allows users to create workspaces, within which they can create and manage task groups and tasks.
+
+## Features
+
+- Create, update, and delete workspaces
+- Create, update, and delete task groups within a workspace
+- Create, update, and delete tasks within a task group
+- Drag and drop tasks and task groups to reorder them
+- Edit workspace title inline
+
+## Live Demo
+
+The application is deployed on GitHub Pages. You can access it [here](https://jagodabie.github.io/trello-board/).
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/jagodabie/trello-board.git`
+2. Navigate into the directory: `cd trello-board`
+3. Install the dependencies: `npm install`
+4. Start the application: `npm start`
 
 ## Available Scripts
 
@@ -21,26 +40,12 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-### `npm run eject`
+## License
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[MIT](https://choosealicense.com/licenses/mit/)
