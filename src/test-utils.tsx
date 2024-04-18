@@ -27,12 +27,7 @@ const customRender = (
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <Provider store={store}>
       <AppProviders theme={theme}>
-        <MemoryRouter initialEntries={[path]}>
-          <Routes>
-            <Route path='/board/:id' element={ui} />
-          </Routes>
-          {children}
-        </MemoryRouter>
+        <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>
       </AppProviders>
     </Provider>
   );

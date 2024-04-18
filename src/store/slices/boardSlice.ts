@@ -58,7 +58,7 @@ export const initialState: BoardInterface = {
     },
   ],
   activeTask: null,
-  activeWorkspace: '',
+  activeWorkspace: '1',
   activeColumn: null,
   activeItem: '',
 };

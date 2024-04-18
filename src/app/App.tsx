@@ -1,4 +1,3 @@
-import { Routes, Route } from 'react-router-dom';
 import { BoardView } from '../pages/BoardView/BoardView';
 
 import { globalTheme as theme } from '../styles/globalTheme';
@@ -6,17 +5,9 @@ import GlobalStyle from '../styles/GlobalStyles.styled';
 
 import { AppContainer, AppHeader, AppMain } from '../index.styled';
 import AppProviders from '../providers/AppProvider';
-import { Playground } from '../pages/Playground/Playground';
 import { CustomDrawer } from '../components/Drawer/Drawer';
-
-const Router = () => {
-  return (
-    <Routes>
-      <Route path='/board/:id' element={<BoardView />} />
-      <Route path='/playground' element={<Playground />}></Route>
-    </Routes>
-  );
-};
+import { Playground } from '../pages/Playground/Playground';
+import { CustomRouter } from '../router/CustomRouter';
 
 const App = () => {
   return (
@@ -24,7 +15,18 @@ const App = () => {
       <GlobalStyle />
       <AppContainer>
         <AppHeader>My Trello Board / Further Navigation</AppHeader>
-        <Router />
+        <CustomRouter
+          components={[
+            {
+              path: '/board/:id',
+              component: <BoardView />,
+            },
+            {
+              path: '/playground',
+              component: <Playground />,
+            },
+          ]}
+        />
         <AppMain>
           <CustomDrawer />
         </AppMain>

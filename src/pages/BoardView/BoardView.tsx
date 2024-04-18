@@ -107,10 +107,6 @@ export const BoardView = () => {
               height: '24px',
               maxWidth: '100%',
             }}
-            onEdit={() => dispatch(setActiveItem(id!))}
-            onDelete={() =>
-              dispatch(deleteWorkspace(activeWorkspace?.id || ''))
-            }
           />
         )}
       </BoardHeader>
