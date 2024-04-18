@@ -9,12 +9,14 @@ export const ReadModeElement = ({
   boardElementClass,
   isActionVisible = false,
   onEdit,
+  ariaLabel,
   onDelete,
 }: {
   name: string;
   customStyles?: Record<string, string>;
   header?: number;
   active?: number;
+  ariaLabel?: string;
 
   boardElementClass: string;
   isActionVisible?: boolean;
@@ -24,12 +26,13 @@ export const ReadModeElement = ({
   return (
     <ReadModeElementWrapper
       active={active || 0}
-      className={boardElementClass || ''}
+      className={boardElementClass}
       $customStyles={customStyles}
     >
       <div
         className={`${boardElementClass}-name`}
         role='button'
+        aria-label={ariaLabel}
         tabIndex={0}
         onClick={!isActionVisible ? onEdit : () => {}}
       >

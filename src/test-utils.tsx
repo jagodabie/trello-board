@@ -1,15 +1,17 @@
 import { ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { boardSlice } from './store/slices';
 import { globalTheme as theme } from './styles/globalTheme';
 import AppProviders from './providers/AppProvider';
+
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   preloadedState?: Record<string, unknown>;
   store?: ReturnType<typeof configureStore>;
   path?: string;
+  theme?: Record<string, Record<string, string>>;
 }
 
 const customRender = (
@@ -26,7 +28,7 @@ const customRender = (
 ) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <Provider store={store}>
-      <AppProviders theme={theme}>
+      <AppProviders theme={options?.theme || theme}>
         <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>
       </AppProviders>
     </Provider>

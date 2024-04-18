@@ -38,6 +38,7 @@ export const Task = ({
           active={Number(id === activeTask?.id)}
           boardElementClass='tasks'
           isActionVisible
+          ariaLabel='Task'
           onEdit={() => dispatch(setActiveTask(task))}
           onDelete={() =>
             dispatch(

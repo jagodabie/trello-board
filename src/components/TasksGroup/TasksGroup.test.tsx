@@ -4,6 +4,7 @@ import { TasksGroup } from './TasksGroup';
 import user from '@testing-library/user-event';
 import { store } from '../../store/store';
 import { render } from '../../test-utils';
+import { BoardInterface } from '../../store/types';
 
 describe('TasksGroup', () => {
   const tasksGroup = {
@@ -14,7 +15,7 @@ describe('TasksGroup', () => {
     tasks: [],
   };
 
-  it('renders the tasks group name', () => {
+  it('1# renders the tasks group name', () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -23,7 +24,7 @@ describe('TasksGroup', () => {
     expect(groupNameElement).toBeInTheDocument();
   });
 
-  it('renders the tasks group section correctly', () => {
+  it('2#  renders the tasks group section correctly', () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -43,7 +44,7 @@ describe('TasksGroup', () => {
     expect(tasksListFooter).toBeInTheDocument();
   });
 
-  it('when edit button is clicked, editMode is set', async () => {
+  it('3# when edit button is clicked, editMode is set', async () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -63,7 +64,7 @@ describe('TasksGroup', () => {
     expect(groupNameElement).not.toBeInTheDocument();
   });
 
-  it('dispatches setActiveItem action when clicking on edit button', async () => {
+  it('4# dispatches setActiveItem action when clicking on edit button', async () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -74,7 +75,7 @@ describe('TasksGroup', () => {
     const textareaElement = screen.getByRole('textbox', { name: 'Add list' });
     expect(textareaElement).toBeInTheDocument();
   });
-  it('does dispatch updateTasksGroupName action when inputValue is empty string', async () => {
+  it('5# does dispatch updateTasksGroupName action when inputValue is empty string', async () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -88,7 +89,7 @@ describe('TasksGroup', () => {
 
     expect(textareaElement).toBeInTheDocument();
   });
-  it('dispatches updateTasksGroupName action when inputValue is not empty string', async () => {
+  it('6# dispatches updateTasksGroupName action when inputValue is not empty string', async () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -103,7 +104,7 @@ describe('TasksGroup', () => {
     expect(textareaElement).not.toBeInTheDocument();
   });
   // TODO: investing why this test is failing
-  it.skip('dispatches deleteWorkspaceTasksGroup action when clicking on delete button', async () => {
+  it.skip('7# dispatches deleteWorkspaceTasksGroup action when clicking on delete button', async () => {
     render(<TasksGroup tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
@@ -112,5 +113,52 @@ describe('TasksGroup', () => {
     if (deleteButton) await user.click(deleteButton);
 
     expect(deleteButton).not.toBeInTheDocument();
+  });
+
+  //TODO: fix this test
+  it.skip('8# Add task when Add task button is clicked', async () => {
+    const prevState: {
+      preloadedState: { board: BoardInterface };
+    } = {
+      preloadedState: {
+        board: {
+          workspaces: [
+            {
+              id: '1',
+              name: 'Trello Sp. z.o.o',
+              tasksGroups: [
+                {
+                  id: '1',
+                  workspaceId: '1',
+                  name: 'Tasks Group 1',
+                  tasks: [
+                    {
+                      id: '1',
+                      name: 'Task 1',
+                      done: false,
+                      tasksGroupId: '1',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          activeTask: null,
+          activeWorkspace: '1',
+          activeColumn: null,
+          activeItem: '',
+        },
+      },
+    };
+    const [workspace] = prevState.preloadedState.board.workspaces;
+    const [tasksGroup] = workspace.tasksGroups;
+
+    render(<TasksGroup tasksGroup={tasksGroup} />, {
+      preloadedState: prevState.preloadedState,
+    });
+
+    const addTaskButton = screen.getByRole('button', { name: 'Add task' });
+
+    await user.click(addTaskButton);
   });
 });

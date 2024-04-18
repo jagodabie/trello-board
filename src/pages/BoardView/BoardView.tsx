@@ -16,14 +16,13 @@ import {
 } from '@dnd-kit/core';
 import {
   createWorkspaceTasksGroup,
-  deleteWorkspace,
   setActiveColumn,
   setActiveItem,
   setActiveTask,
   setActiveWorkspace,
   updateWorkspaceName,
 } from '../../store/slices/actions';
-import { TasksGroup } from '../../components/TasksGroups/TasksGroup';
+import { TasksGroup } from '../../components/TasksGroup/TasksGroup';
 import { useHandleDragEnd } from '../../hooks/useHandleDragEnd/useHandleDragEnd';
 import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../../hoc/withDnDElement';

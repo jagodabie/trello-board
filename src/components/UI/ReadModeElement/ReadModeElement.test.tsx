@@ -1,23 +1,26 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReadModeElement } from './ReadModeElement';
+import { globalTheme as theme } from './../../../styles/globalTheme';
+import { render } from '../../../test-utils';
 
 describe('ReadModeElement', () => {
-  test('component correctly display element name', () => {
+  test('1# component correctly display element name', () => {
     render(<ReadModeElement name='Test name' boardElementClass='test-name' />);
     const nameElement = screen.getByRole('button', { name: 'Test name' });
 
     expect(nameElement).toBeInTheDocument();
   });
 
-  test('elements receive proper class', () => {
+  test('2# elements receive proper class', () => {
     render(
       <ReadModeElement name='Test name' boardElementClass='add-proper-value' />
     );
     const nameElement = screen.getByRole('button', { name: 'Test name' });
     expect(nameElement).toHaveClass('add-proper-value-name');
   });
-  test('element witch display name receive proper class', () => {
+
+  test('3# when component does not receive isActionVisible then actions are not displayed', () => {
     render(
       <ReadModeElement name='Test name' boardElementClass='add-proper-value' />
     );
@@ -27,18 +30,19 @@ describe('ReadModeElement', () => {
 
     expect(nameElement).toHaveClass('add-proper-value-name');
   });
-  test('element actions appear when isActionVisible equal = true is given', () => {
+  test('4# element actions appear when isActionVisible equal = true is given', () => {
     render(
       <ReadModeElement
         name='Test name'
         boardElementClass='add-proper-value'
         isActionVisible={true}
-      />
+      />,
+      { theme }
     );
     const actionsElement = screen.getByRole('group');
     expect(actionsElement).toBeInTheDocument();
   });
-  test('onEdit function is called when edit button is clicked', () => {
+  test('5# onEdit function is called when edit button is clicked', () => {
     const onEditMock = jest.fn();
     render(
       <ReadModeElement
@@ -53,7 +57,7 @@ describe('ReadModeElement', () => {
     expect(onEditMock).toHaveBeenCalled();
   });
 
-  test('onDelete function is called when delete button is clicked', () => {
+  test('6# onDelete function is called when delete button is clicked', () => {
     const onDeleteMock = jest.fn();
     render(
       <ReadModeElement

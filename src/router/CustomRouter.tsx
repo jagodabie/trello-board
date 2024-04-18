@@ -8,8 +8,11 @@ export const CustomRouter = ({
   return (
     <Routes>
       {components.map(
-        ({ path, component }: { path: string; component: React.ReactNode }) => (
-          <Route path={path} element={component} />
+        (
+          { path, component }: { path: string; component: React.ReactNode },
+          index
+        ) => (
+          <Route path={path} element={component} key={index} />
         )
       )}
     </Routes>
