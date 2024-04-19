@@ -100,6 +100,7 @@ export const BoardView = () => {
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
             isActionVisible={false}
+            onEdit={() => dispatch(setActiveItem(activeWorkspace?.id || ''))}
             customStyles={{
               fontWeight: '800',
               fontSize: '25px',

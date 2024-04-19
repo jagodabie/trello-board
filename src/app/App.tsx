@@ -8,6 +8,7 @@ import AppProviders from '../providers/AppProvider';
 import { CustomDrawer } from '../components/Drawer/Drawer';
 import { Playground } from '../pages/Playground/Playground';
 import { CustomRouter } from '../router/CustomRouter';
+import { HomePage } from '../pages/HomePage/HomePage';
 
 const App = () => {
   return (
@@ -24,6 +25,14 @@ const App = () => {
             {
               path: '/playground',
               component: <Playground />,
+            },
+            {
+              path: '/',
+              component: <HomePage />,
+            },
+            {
+              path: '/trello-board',
+              component: <HomePage />,
             },
           ]}
         />
