@@ -10,6 +10,7 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
     handleOnDragOver: (event: DragOverEvent) => {
       const { active, over } = event;
       if (active?.id === over?.id) return;
+      if (over?.id) return;
 
       const activeElement = active?.data.current;
       const overElement = over?.data.current;
@@ -25,12 +26,12 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
         const element = activeElement?.element;
 
         const newActiveTasks = tasksGroups
-          .find((group) => group.id === element.tasksGroupId)
+          .find((group) => group.id === element?.tasksGroupId)
           ?.tasks.filter((task) => task.id !== active?.id);
 
         dispatch(
           setTasks({
-            tasksGroupId: element.tasksGroupId,
+            tasksGroupId: element?.tasksGroupId,
             tasks: newActiveTasks || [],
           })
         );
@@ -39,7 +40,7 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
           if (overElement?.type === 'task') {
             // Drop task to another task
             const tasksOver = tasksGroups.find(
-              (group) => group.id === overElement?.element.tasksGroupId
+              (group) => group.id === overElement?.element?.tasksGroupId
             )?.tasks;
 
             const indexOfOverTasks = tasksOver?.findIndex(
@@ -48,12 +49,12 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
 
             dispatch(
               setTasks({
-                tasksGroupId: overElement?.element.tasksGroupId,
+                tasksGroupId: overElement?.element?.tasksGroupId,
                 tasks: [
                   ...(tasksOver?.slice(0, Number(indexOfOverTasks)) || []),
                   {
                     ...element,
-                    tasksGroupId: overElement?.element.tasksGroupId,
+                    tasksGroupId: overElement?.element?.tasksGroupId,
                   },
                   ...(tasksOver?.slice(Number(indexOfOverTasks)) || []),
                 ],
@@ -77,12 +78,12 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
         }
       } else if (
         activeElement?.type === 'task' &&
-        activeElement?.element.tasksGroupId ===
-          overElement?.element.tasksGroupId
+        activeElement?.element?.tasksGroupId ===
+          overElement?.element?.tasksGroupId
       ) {
         dispatch(
           setTasks({
-            tasksGroupId: activeElement?.element.tasksGroupId,
+            tasksGroupId: activeElement?.element?.tasksGroupId,
             tasks: changedElementsOrder(
               tasksGroupActive?.tasks || [],
               getTaskPosition(
