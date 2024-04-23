@@ -7,10 +7,10 @@ import { changedElementsOrder, getTaskPosition } from '../../utils';
 export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
   const dispatch = useAppDispatch();
   return {
+    // TODO Refactor this function
     handleOnDragOver: (event: DragOverEvent) => {
       const { active, over } = event;
       if (active?.id === over?.id) return;
-      if (over?.id) return;
 
       const activeElement = active?.data.current;
       const overElement = over?.data.current;
@@ -29,13 +29,6 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
           .find((group) => group.id === element?.tasksGroupId)
           ?.tasks.filter((task) => task.id !== active?.id);
 
-        dispatch(
-          setTasks({
-            tasksGroupId: element?.tasksGroupId,
-            tasks: newActiveTasks || [],
-          })
-        );
-
         if (activeElement?.type === 'task') {
           if (overElement?.type === 'task') {
             // Drop task to another task
@@ -46,7 +39,12 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
             const indexOfOverTasks = tasksOver?.findIndex(
               (task) => task.id === over?.id
             );
-
+            dispatch(
+              setTasks({
+                tasksGroupId: element?.tasksGroupId,
+                tasks: newActiveTasks || [],
+              })
+            );
             dispatch(
               setTasks({
                 tasksGroupId: overElement?.element?.tasksGroupId,
@@ -62,7 +60,15 @@ export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
             );
           }
           //   Drop task to empty tasks group
-          if (isOverTaskGroup) {
+          else if (isOverTaskGroup) {
+            if (overElement?.element.tasks?.length) return;
+            dispatch(
+              setTasks({
+                tasksGroupId: element?.tasksGroupId,
+                tasks: newActiveTasks || [],
+              })
+            );
+
             dispatch(
               setTasks({
                 tasksGroupId: over?.data.current?.element?.id,
