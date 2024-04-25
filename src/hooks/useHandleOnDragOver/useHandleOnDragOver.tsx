@@ -1,15 +1,15 @@
 import { DragOverEvent } from '@dnd-kit/core';
 import {
-  DropContext,
+  DropTaskContext,
   TaskDropOntoAnotherTaskDropInDifferentGroupStrategy,
   TaskDropOntoAnotherTaskDropInSameGroupStrategy,
   TaskDropOntoEmptyGroupStrategy,
-} from '.';
+} from './TaskDropStrategy';
 import { useAppDispatch } from '../useAppDispatch';
 import { setTasks, setTasksGroupOrder } from '../../store/slices/actions';
 import { changedElementsOrder, getTaskPosition } from '../../utils';
 
-export const useHandleOnDragOverStrategy = (tasksGroups: any[]) => {
+export const useHandleOnDragOver = (tasksGroups: any[]) => {
   const dispatch = useAppDispatch();
   return {
     handleOnDragOver: (event: DragOverEvent) => {
@@ -31,11 +31,11 @@ export const useHandleOnDragOverStrategy = (tasksGroups: any[]) => {
         active?.data?.current?.element?.tasksGroupId !==
           over?.data?.current?.element?.tasksGroupId
       ) {
-        const dropContex = new DropContext(
+        const dropTaskContext = new DropTaskContext(
           new TaskDropOntoAnotherTaskDropInDifferentGroupStrategy()
         );
         const { updatedActiveTasksList, updatedOverTaskList } =
-          dropContex.handleTaskDrop(
+          dropTaskContext.handleTaskDrop(
             activeElement?.element,
             overElement?.element,
             tasksGroups
@@ -47,10 +47,10 @@ export const useHandleOnDragOverStrategy = (tasksGroups: any[]) => {
         activeElement?.element?.tasksGroupId ===
           overElement?.element?.tasksGroupId
       ) {
-        const dropContex = new DropContext(
+        const dropTaskContext = new DropTaskContext(
           new TaskDropOntoAnotherTaskDropInSameGroupStrategy()
         );
-        const { updatedActiveTasksList } = dropContex.handleTaskDrop(
+        const { updatedActiveTasksList } = dropTaskContext.handleTaskDrop(
           activeElement?.element,
           overElement?.element,
           tasksGroups
@@ -61,13 +61,14 @@ export const useHandleOnDragOverStrategy = (tasksGroups: any[]) => {
         overElement?.type === 'tasksGroup' &&
         activeElement?.element?.tasksGroupId !== overElement?.element?.id
       ) {
-        const dropContex = new DropContext(
+        const dropTaskContext = new DropTaskContext(
           new TaskDropOntoEmptyGroupStrategy()
         );
+
         if (overElement?.element.tasks?.length) return;
 
         const { updatedOverTaskList, updatedActiveTasksList } =
-          dropContex.handleTaskDrop(
+          dropTaskContext.handleTaskDrop(
             activeElement?.element,
             overElement?.element,
             tasksGroups

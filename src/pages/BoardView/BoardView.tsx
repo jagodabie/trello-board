@@ -35,7 +35,7 @@ import { generateId } from '../../utils';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { withRefTextarea } from '../../hoc/withRefsTextarea';
-import { useHandleOnDragOverStrategy } from '../../hooks/useHandleOnDragOver/useHandleOnDragOverStrategy';
+import { useHandleOnDragOver } from '../../hooks/useHandleOnDragOver/useHandleOnDragOver';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
@@ -51,7 +51,7 @@ export const BoardView = () => {
   );
   const activeWorkspace = workspaces?.find((workspace) => workspace?.id === id);
 
-  const { handleOnDragOver } = useHandleOnDragOverStrategy(
+  const { handleOnDragOver } = useHandleOnDragOver(
     activeWorkspace?.tasksGroups || []
   );
 

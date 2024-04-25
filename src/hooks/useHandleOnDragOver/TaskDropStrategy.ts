@@ -22,7 +22,7 @@ interface TaskDropStrategy {
   };
 }
 
-export class DropContext {
+export class DropTaskContext {
   private taskDropStrategy: TaskDropStrategy;
 
   constructor(taskDropStrategy: TaskDropStrategy) {
@@ -37,7 +37,6 @@ export class DropContext {
     return activeElement?.current?.type;
   };
 
-  //   LOGIKA BISS
   public handleTaskDrop(
     activeElement: DndElementInterface,
     overElement: DndElementInterface,
@@ -51,7 +50,6 @@ export class DropContext {
   }
 }
 
-// Implement the strategies
 export class TaskDropOntoAnotherTaskDropInDifferentGroupStrategy
   implements TaskDropStrategy
 {
