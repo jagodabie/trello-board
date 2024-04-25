@@ -24,3 +24,12 @@ export interface BoardInterface {
   activeItem: string;
   activeTask: TaskInterface | null;
 }
+
+export interface DndElementInterface
+  extends TaskInterface,
+    TasksGroupInterface {}
+
+export interface DnDElement {
+  element: DndElementInterface;
+  type: string;
+}

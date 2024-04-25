@@ -27,7 +27,6 @@ import { useHandleDragEnd } from '../../hooks/useHandleDragEnd/useHandleDragEnd'
 import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../../hoc/withDnDElement';
 import { TasksGroupInterface } from '../../store/types';
-import { useHandleOnDragOver } from '../../hooks/useHandleOnDragOver/useHandleOnDragOver';
 import { createPortal } from 'react-dom';
 import { Task } from '../../components/Task/Task';
 import { Button } from '../../components/UI/Button/Button';
@@ -36,6 +35,7 @@ import { generateId } from '../../utils';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { withRefTextarea } from '../../hoc/withRefsTextarea';
+import { useHandleOnDragOverStrategy } from '../../hooks/useHandleOnDragOver/useHandleOnDragOverStrategy';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
@@ -51,7 +51,7 @@ export const BoardView = () => {
   );
   const activeWorkspace = workspaces?.find((workspace) => workspace?.id === id);
 
-  const { handleOnDragOver } = useHandleOnDragOver(
+  const { handleOnDragOver } = useHandleOnDragOverStrategy(
     activeWorkspace?.tasksGroups || []
   );
 
