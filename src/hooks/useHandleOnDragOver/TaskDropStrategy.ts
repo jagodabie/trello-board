@@ -71,28 +71,29 @@ export class TaskDropOntoAnotherTaskDropInDifferentGroupStrategy
       (group: TasksGroupInterface) => group.id === overElement.tasksGroupId
     )?.tasks;
 
-    const indexOfOverTasks = tasksOver?.findIndex(
-      (task: TaskInterface) => task.id === overElement.id
-    );
+    const indexOfOverTasks =
+      tasksOver?.findIndex(
+        (task: TaskInterface) => task.id === overElement.id
+      ) || '';
     return {
       updatedActiveTasksList: {
-        tasksGroupId: activeElement.tasksGroupId,
+        tasksGroupId: activeElement?.tasksGroupId!,
         tasks:
           tasksGroups
             .find((group) => group.id === activeElement.tasksGroupId)
             ?.tasks.filter((task: any) => task.id !== activeElement?.id) || [],
       },
       updatedOverTaskList: {
-        tasksGroupId: overElement.tasksGroupId,
+        tasksGroupId: overElement?.tasksGroupId!,
         tasks:
-          [
+          ([
             ...(tasksOver?.slice(0, Number(indexOfOverTasks)) || []),
             {
               ...activeElement,
               tasksGroupId: overElement?.tasksGroupId,
             },
             ...(tasksOver?.slice(Number(indexOfOverTasks)) || []),
-          ] || [],
+          ] as TaskInterface[]) || [],
       },
     };
   }
@@ -118,11 +119,11 @@ export class TaskDropOntoAnotherTaskDropInSameGroupStrategy
 
     return {
       updatedActiveTasksList: {
-        tasksGroupId: activeElement?.tasksGroupId,
+        tasksGroupId: activeElement?.tasksGroupId!,
         tasks: changedElementsOrder(
           tasksListActive || [],
-          getTaskPosition(tasksListActive, activeElement.id),
-          getTaskPosition(tasksListActive, overElement.id)
+          getTaskPosition(tasksListActive, activeElement.id!),
+          getTaskPosition(tasksListActive, overElement.id!)
         ),
       },
     };
@@ -145,23 +146,24 @@ export class TaskDropOntoEmptyGroupStrategy implements TaskDropStrategy {
     };
   } {
     const tasksActive = tasksGroups.find(
-      (group: TasksGroupInterface) => group.id === activeElement.tasksGroupId
+      (group: TasksGroupInterface) => group.id === activeElement?.tasksGroupId
     )?.tasks;
 
     return {
       updatedActiveTasksList: {
-        tasksGroupId: activeElement?.tasksGroupId,
+        tasksGroupId: activeElement?.tasksGroupId!,
         tasks:
           tasksActive?.filter(
             (task: TaskInterface) => task.id !== activeElement?.id
           ) || [],
       },
       updatedOverTaskList: {
-        tasksGroupId: overElement?.id,
+        tasksGroupId: overElement?.id!,
         tasks: [
           {
             ...activeElement,
-          },
+            tasksGroupId: overElement?.id,
+          } as TaskInterface,
         ],
       },
     };

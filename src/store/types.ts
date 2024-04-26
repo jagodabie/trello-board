@@ -26,8 +26,8 @@ export interface BoardInterface {
 }
 
 export interface DndElementInterface
-  extends TaskInterface,
-    TasksGroupInterface {}
+  extends Partial<TaskInterface>,
+    Partial<TasksGroupInterface> {}
 
 export interface DnDElement {
   element: DndElementInterface;
