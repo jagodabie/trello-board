@@ -1,105 +1,80 @@
 import { DragOverEvent } from '@dnd-kit/core';
-import { TasksGroupInterface } from '../../store/types';
+import {
+  DropTaskContext,
+  TaskDropOntoAnotherTaskDropInDifferentGroupStrategy,
+  TaskDropOntoAnotherTaskDropInSameGroupStrategy,
+  TaskDropOntoEmptyGroupStrategy,
+} from './TaskDropStrategy';
 import { useAppDispatch } from '../useAppDispatch';
 import { setTasks, setTasksGroupOrder } from '../../store/slices/actions';
 import { changedElementsOrder, getTaskPosition } from '../../utils';
 
-export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
+export const useHandleOnDragOver = (tasksGroups: any[]) => {
   const dispatch = useAppDispatch();
   return {
-    // TODO Refactor this function
     handleOnDragOver: (event: DragOverEvent) => {
       const { active, over } = event;
       if (active?.id === over?.id) return;
+      const activeElement = {
+        element: active?.data?.current?.element,
+        type: active?.data?.current?.type,
+      };
 
-      const activeElement = active?.data.current;
-      const overElement = over?.data.current;
-      const isOverTaskGroup = over?.data.current?.type === 'tasksGroup';
-      const tasksGroupActive = tasksGroups.find(
-        (taskGroup) => taskGroup.id === activeElement?.element?.tasksGroupId
-      );
+      const overElement = {
+        element: over?.data?.current?.element,
+        type: over?.data?.current?.type,
+      };
 
       if (
-        activeElement?.element?.tasksGroupId !==
-        overElement?.element?.tasksGroupId
+        active?.data?.current?.type === over?.data?.current?.type &&
+        active?.data?.current?.type === 'task' &&
+        active?.data?.current?.element?.tasksGroupId !==
+          over?.data?.current?.element?.tasksGroupId
       ) {
-        const element = activeElement?.element;
-
-        const newActiveTasks = tasksGroups
-          .find((group) => group.id === element?.tasksGroupId)
-          ?.tasks.filter((task) => task.id !== active?.id);
-
-        if (activeElement?.type === 'task') {
-          if (overElement?.type === 'task') {
-            // Drop task to another task
-            const tasksOver = tasksGroups.find(
-              (group) => group.id === overElement?.element?.tasksGroupId
-            )?.tasks;
-
-            const indexOfOverTasks = tasksOver?.findIndex(
-              (task) => task.id === over?.id
-            );
-            dispatch(
-              setTasks({
-                tasksGroupId: element?.tasksGroupId,
-                tasks: newActiveTasks || [],
-              })
-            );
-            dispatch(
-              setTasks({
-                tasksGroupId: overElement?.element?.tasksGroupId,
-                tasks: [
-                  ...(tasksOver?.slice(0, Number(indexOfOverTasks)) || []),
-                  {
-                    ...element,
-                    tasksGroupId: overElement?.element?.tasksGroupId,
-                  },
-                  ...(tasksOver?.slice(Number(indexOfOverTasks)) || []),
-                ],
-              })
-            );
-          }
-          //   Drop task to empty tasks group
-          else if (isOverTaskGroup) {
-            if (overElement?.element.tasks?.length) return;
-            dispatch(
-              setTasks({
-                tasksGroupId: element?.tasksGroupId,
-                tasks: newActiveTasks || [],
-              })
-            );
-
-            dispatch(
-              setTasks({
-                tasksGroupId: over?.data.current?.element?.id,
-                tasks: [
-                  {
-                    ...element,
-                    tasksGroupId: over?.data.current?.element?.id,
-                  },
-                ],
-              })
-            );
-          }
-        }
+        const dropTaskContext = new DropTaskContext(
+          new TaskDropOntoAnotherTaskDropInDifferentGroupStrategy()
+        );
+        const { updatedActiveTasksList, updatedOverTaskList } =
+          dropTaskContext.handleTaskDrop(
+            activeElement?.element,
+            overElement?.element,
+            tasksGroups
+          );
+        dispatch(setTasks(updatedActiveTasksList!));
+        dispatch(setTasks(updatedOverTaskList!));
       } else if (
         activeElement?.type === 'task' &&
         activeElement?.element?.tasksGroupId ===
           overElement?.element?.tasksGroupId
       ) {
-        dispatch(
-          setTasks({
-            tasksGroupId: activeElement?.element?.tasksGroupId,
-            tasks: changedElementsOrder(
-              tasksGroupActive?.tasks || [],
-              getTaskPosition(
-                tasksGroupActive?.tasks || [],
-                active.id as string
-              ),
-              getTaskPosition(tasksGroupActive?.tasks || [], over?.id as string)
-            ),
-          })
+        const dropTaskContext = new DropTaskContext(
+          new TaskDropOntoAnotherTaskDropInSameGroupStrategy()
         );
+        const { updatedActiveTasksList } = dropTaskContext.handleTaskDrop(
+          activeElement?.element,
+          overElement?.element,
+          tasksGroups
+        );
+        dispatch(setTasks(updatedActiveTasksList!));
+      } else if (
+        activeElement?.type === 'task' &&
+        overElement?.type === 'tasksGroup' &&
+        activeElement?.element?.tasksGroupId !== overElement?.element?.id
+      ) {
+        const dropTaskContext = new DropTaskContext(
+          new TaskDropOntoEmptyGroupStrategy()
+        );
+
+        if (overElement?.element.tasks?.length) return;
+
+        const { updatedOverTaskList, updatedActiveTasksList } =
+          dropTaskContext.handleTaskDrop(
+            activeElement?.element,
+            overElement?.element,
+            tasksGroups
+          );
+        dispatch(setTasks(updatedActiveTasksList!));
+        dispatch(setTasks(updatedOverTaskList!));
       } else if (
         activeElement?.type === 'tasksGroup' &&
         overElement?.type === 'tasksGroup'
