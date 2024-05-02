@@ -6,7 +6,6 @@ import GlobalStyle from '../styles/GlobalStyles.styled';
 import { AppContainer, AppHeader, AppMain } from '../index.styled';
 import AppProviders from '../providers/AppProvider';
 import { CustomDrawer } from '../components/Drawer/Drawer';
-import { Playground } from '../pages/Playground/Playground';
 import { CustomRouter } from '../router/CustomRouter';
 import { HomePage } from '../pages/HomePage/HomePage';
 
@@ -21,10 +20,6 @@ const App = () => {
             {
               path: '/board/:id',
               component: <BoardView />,
-            },
-            {
-              path: '/playground',
-              component: <Playground />,
             },
             {
               path: '/',
