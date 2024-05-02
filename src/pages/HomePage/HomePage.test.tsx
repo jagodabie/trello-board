@@ -1,4 +1,4 @@
-import { logRoles, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { HomePage } from './HomePage';
 import userEvent from '@testing-library/user-event';
 
@@ -20,8 +20,7 @@ test('2# renders home page paragraph', () => {
 });
 
 test('3# on page re-load appear div with opacity', () => {
-  const { container } = render(<HomePage />);
-  logRoles(container);
+  render(<HomePage />);
   const divElement = screen.getByTestId('hint-homepage-testid');
   expect(divElement).toBeInTheDocument();
   expect(divElement).toHaveStyle('opacity: 0.7');

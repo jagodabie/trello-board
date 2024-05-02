@@ -401,7 +401,6 @@ describe('TaskDropOntoAnotherTaskDropInSameGroupStrategy', () => {
         },
         tasksGroups
       );
-      console.log(result?.updatedOverTaskList?.tasks, 'tasks');
       expect(result?.updatedOverTaskList?.tasks).toEqual([
         {
           id: '1123',
