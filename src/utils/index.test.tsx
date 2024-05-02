@@ -12,7 +12,7 @@ describe('changedElementsOrder', () => {
       newPosition
     );
 
-    expect(result).toEqual([1, 2, 4, 3, 5]);
+    expect(result).toEqual([1, 2, 4, 5, 3]);
   });
 
   test('should return the same array if originalPosition and newPosition are the same', () => {

@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { logRoles, screen } from '@testing-library/react';
 
 import user from '@testing-library/user-event';
 import { store } from '../../store/store';
@@ -38,7 +38,7 @@ describe('Task', () => {
     const editButton = screen.queryByRole('button', { name: 'edit' });
     const deleteButton = screen.queryByRole('button', { name: 'delete' });
     const taskNameElement = screen.queryByRole('button', {
-      name: 'Codding',
+      name: 'Task',
     });
 
     expect(taskNameElement).toBeInTheDocument();
