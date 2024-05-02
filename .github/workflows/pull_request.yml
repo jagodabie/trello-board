@@ -1,12 +1,10 @@
-name: Master Workflow
+name: Pull Request Workflow
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
 
 jobs:
-  build:
+  verify-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
