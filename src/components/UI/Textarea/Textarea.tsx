@@ -6,6 +6,7 @@ import { TextareaWrapper } from '.';
 export interface TextareaProps {
   placeholder: string;
   name?: string;
+  dataTestid?: string;
   customStyle?: Record<string, string>;
   ariaLabel: string;
   defaultValue?: string | number;
@@ -24,6 +25,7 @@ export const Textarea: React.FC<
   onBlur,
   customStyle,
   forwardedRef,
+  dataTestid,
 }) => {
   const [textareaValue, setTextareaValue] = useState<string>(
     defaultValue?.toString() || ''
@@ -56,6 +58,7 @@ export const Textarea: React.FC<
         value={textareaValue}
         placeholder={placeholder}
         aria-label={ariaLabel}
+        data-testid={dataTestid}
         onChange={handleTextareaChange}
         style={
           customStyle

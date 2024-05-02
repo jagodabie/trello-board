@@ -70,11 +70,16 @@ export const BoardView = () => {
   }, [dispatch, id]);
   return (
     <StyledBoardView>
-      <BoardHeader role='header' aria-label='Board header'>
+      <BoardHeader
+        role='header'
+        aria-label='Board header'
+        test-dataid={`board-header-${activeWorkspace?.id}`}
+      >
         {activeWorkspace?.id === activeItem ? (
           <TextareaWithRef
             placeholder='Add a workspace title'
             name='title'
+            dataTestid='workspace-title'
             ariaLabel='title'
             forwardedRef={textareaRef}
             onBlur={(inputValue?: string) => {
@@ -99,6 +104,8 @@ export const BoardView = () => {
             key={activeWorkspace?.id}
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
+            dataTestid={`
+              workspace-title-${activeWorkspace?.id}`}
             isActionVisible={false}
             onEdit={() => dispatch(setActiveItem(activeWorkspace?.id || ''))}
             customStyles={{

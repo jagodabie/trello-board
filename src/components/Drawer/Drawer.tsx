@@ -45,6 +45,7 @@ export const CustomDrawer = () => {
             text={'>'}
             onClick={toggleDrawer('left', true)}
             ariaLabel='Open drawer'
+            dataTestid='drawer-button'
           />
         </SideButtonWrapper>
       </SideElementNavigation>

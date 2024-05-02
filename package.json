@@ -38,13 +38,17 @@
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "coverage": "npx react-scripts test --coverage --watchAll"
+    "coverage": "npx react-scripts test --coverage --watchAll",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "globals": {
+      "cy": "readonly"
+    }
   },
   "browserslist": {
     "production": [
@@ -83,6 +87,7 @@
     }
   },
   "devDependencies": {
+    "cypress": "^13.8.1",
     "gh-pages": "^6.1.1"
   }
 }

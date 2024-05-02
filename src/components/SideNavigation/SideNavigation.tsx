@@ -68,6 +68,7 @@ export const SideNavigation: React.FC<SideNavigationInterface> = ({
           aria-label='Add Board'
           text={`Add Workspace`}
           iconComponent={<Plus color='#fff' />}
+          dataTestid='add-workspace-button'
           onClick={() => {
             const id = generateId();
 

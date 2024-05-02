@@ -7,6 +7,7 @@ export const ReadModeElement = ({
   customStyles,
   active,
   boardElementClass,
+  dataTestid,
   isActionVisible = false,
   onEdit,
   ariaLabel,
@@ -17,7 +18,7 @@ export const ReadModeElement = ({
   header?: number;
   active?: number;
   ariaLabel?: string;
-
+  dataTestid?: string;
   boardElementClass: string;
   isActionVisible?: boolean;
   onEdit?: () => void;
@@ -32,6 +33,7 @@ export const ReadModeElement = ({
       <div
         className={`${boardElementClass}-name`}
         role='button'
+        data-testid={dataTestid}
         aria-label={ariaLabel}
         tabIndex={0}
         onClick={!isActionVisible ? onEdit : () => {}}

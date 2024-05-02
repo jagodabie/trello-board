@@ -8,6 +8,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   buttonClass,
   ariaLabel,
+  dataTestid,
 }) => {
   return (
     <StyledButton
@@ -17,6 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={buttonClass}
       aria-label={ariaLabel}
+      data-testid={dataTestid}
     >
       <span className='button-icon'>{iconComponent}</span>
       <span className='button-text'>{text}</span>

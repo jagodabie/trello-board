@@ -6,6 +6,7 @@ export interface ButtonProps {
   buttonClass?: 'primary' | '';
   $ariaLabel?: string;
   ariaLabel?: string;
+  dataTestid?: string;
 }
 export type StyledButtonProps = Omit<ButtonProps, 'buttonType'> & {
   className?: 'primary' | '';
