@@ -20,7 +20,7 @@ describe('Board View', () => {
       expect(boardId).to.eq('1');
     });
   });
-  it(' User create a new tasks board', () => {
+  it(' User create a new tasks board then type new name', () => {
     cy.visit('http://localhost:3000/');
     cy.get('[data-testid=hint-homepage-testid]')
       .should('exist')

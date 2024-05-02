@@ -104,8 +104,7 @@ export const BoardView = () => {
             key={activeWorkspace?.id}
             name={activeWorkspace?.name || ''}
             boardElementClass='workspace'
-            dataTestid={`
-              workspace-title-${activeWorkspace?.id}`}
+            dataTestid='workspace-title'
             isActionVisible={false}
             onEdit={() => dispatch(setActiveItem(activeWorkspace?.id || ''))}
             customStyles={{
