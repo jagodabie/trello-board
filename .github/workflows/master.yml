@@ -25,9 +25,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test
-
-      - name: Run e2e tests
-        run: npm run cypress
+      # TODO: Uncomment the following lines if you have e2e tests
+      # - name: Run e2e tests
+      #   run: npm run cypress
 
       - name: Build project
         run: npm run build
