@@ -1,23 +1,19 @@
-import {
-  DndElementInterface,
-  TaskInterface,
-  TasksGroupInterface,
-} from '../../store/types';
+import { DndElement, Task, TasksGroup } from '../../store/types';
 import { changedElementsOrder, getTaskPosition } from '../../utils';
 
 interface TaskDropStrategy {
   handleTaskDrop(
-    activeElement: DndElementInterface,
-    overElement: DndElementInterface,
-    tasksGroups?: TasksGroupInterface[]
+    activeElement: DndElement,
+    overElement: DndElement,
+    tasksGroups?: TasksGroup[]
   ): {
     updatedActiveTasksList?: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
     updatedOverTaskList?: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
   };
 }
@@ -38,9 +34,9 @@ export class DropTaskContext {
   };
 
   public handleTaskDrop(
-    activeElement: DndElementInterface,
-    overElement: DndElementInterface,
-    tasksGroups?: TasksGroupInterface[]
+    activeElement: DndElement,
+    overElement: DndElement,
+    tasksGroups?: TasksGroup[]
   ) {
     return this.taskDropStrategy.handleTaskDrop(
       activeElement,
@@ -54,27 +50,25 @@ export class TaskDropOntoAnotherTaskDropInDifferentGroupStrategy
   implements TaskDropStrategy
 {
   handleTaskDrop(
-    activeElement: DndElementInterface,
-    overElement: DndElementInterface,
-    tasksGroups: TasksGroupInterface[]
+    activeElement: DndElement,
+    overElement: DndElement,
+    tasksGroups: TasksGroup[]
   ): {
     updatedActiveTasksList: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
     updatedOverTaskList: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
   } {
     const tasksOver = tasksGroups.find(
-      (group: TasksGroupInterface) => group.id === overElement.tasksGroupId
+      (group: TasksGroup) => group.id === overElement.tasksGroupId
     )?.tasks;
 
     const indexOfOverTasks =
-      tasksOver?.findIndex(
-        (task: TaskInterface) => task.id === overElement.id
-      ) || '';
+      tasksOver?.findIndex((task: Task) => task.id === overElement.id) || '';
     return {
       updatedActiveTasksList: {
         tasksGroupId: activeElement?.tasksGroupId!,
@@ -93,7 +87,7 @@ export class TaskDropOntoAnotherTaskDropInDifferentGroupStrategy
               tasksGroupId: overElement?.tasksGroupId,
             },
             ...(tasksOver?.slice(Number(indexOfOverTasks)) || []),
-          ] as TaskInterface[]) || [],
+          ] as Task[]) || [],
       },
     };
   }
@@ -103,18 +97,18 @@ export class TaskDropOntoAnotherTaskDropInSameGroupStrategy
   implements TaskDropStrategy
 {
   handleTaskDrop(
-    activeElement: DndElementInterface,
-    overElement: DndElementInterface,
-    tasksGroups: TasksGroupInterface[]
+    activeElement: DndElement,
+    overElement: DndElement,
+    tasksGroups: TasksGroup[]
   ): {
     updatedActiveTasksList: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
   } {
     const tasksListActive =
       tasksGroups.find(
-        (group: TasksGroupInterface) => group.id === activeElement.tasksGroupId
+        (group: TasksGroup) => group.id === activeElement.tasksGroupId
       )?.tasks || [];
 
     return {
@@ -132,30 +126,29 @@ export class TaskDropOntoAnotherTaskDropInSameGroupStrategy
 
 export class TaskDropOntoEmptyGroupStrategy implements TaskDropStrategy {
   handleTaskDrop(
-    activeElement: DndElementInterface,
-    overElement: DndElementInterface,
-    tasksGroups: TasksGroupInterface[]
+    activeElement: DndElement,
+    overElement: DndElement,
+    tasksGroups: TasksGroup[]
   ): {
     updatedActiveTasksList: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
     updatedOverTaskList: {
       tasksGroupId: string;
-      tasks: TaskInterface[];
+      tasks: Task[];
     };
   } {
     const tasksActive = tasksGroups.find(
-      (group: TasksGroupInterface) => group.id === activeElement?.tasksGroupId
+      (group: TasksGroup) => group.id === activeElement?.tasksGroupId
     )?.tasks;
 
     return {
       updatedActiveTasksList: {
         tasksGroupId: activeElement?.tasksGroupId!,
         tasks:
-          tasksActive?.filter(
-            (task: TaskInterface) => task.id !== activeElement?.id
-          ) || [],
+          tasksActive?.filter((task: Task) => task.id !== activeElement?.id) ||
+          [],
       },
       updatedOverTaskList: {
         tasksGroupId: overElement?.id!,
@@ -163,7 +156,7 @@ export class TaskDropOntoEmptyGroupStrategy implements TaskDropStrategy {
           {
             ...activeElement,
             tasksGroupId: overElement?.id,
-          } as TaskInterface,
+          } as Task,
         ],
       },
     };

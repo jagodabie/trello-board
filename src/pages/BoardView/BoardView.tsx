@@ -26,7 +26,7 @@ import { TasksGroup } from '../../components/TasksGroup/TasksGroup';
 import { useHandleDragEnd } from '../../hooks/useHandleDragEnd/useHandleDragEnd';
 import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../../hoc/withDnDElement';
-import { TasksGroupInterface } from '../../store/types';
+import { TasksGroup } from '../../store/types';
 import { createPortal } from 'react-dom';
 import { Task } from '../../components/Task/Task';
 import { Button } from '../../components/UI/Button/Button';
@@ -130,17 +130,15 @@ export const BoardView = () => {
           >
             <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
               {activeWorkspace?.tasksGroups.length ? (
-                activeWorkspace?.tasksGroups.map(
-                  (tasksGroup: TasksGroupInterface) => (
-                    <DraggableTasksGroup
-                      type='tasksGroup'
-                      element={tasksGroup}
-                      tasksGroup={tasksGroup}
-                      id={tasksGroup.id}
-                      key={tasksGroup.id}
-                    />
-                  )
-                )
+                activeWorkspace?.tasksGroups.map((tasksGroup: TasksGroup) => (
+                  <DraggableTasksGroup
+                    type='tasksGroup'
+                    element={tasksGroup}
+                    tasksGroup={tasksGroup}
+                    id={tasksGroup.id}
+                    key={tasksGroup.id}
+                  />
+                ))
               ) : (
                 <p aria-label='No tasks groups'>No tasks groups</p>
               )}

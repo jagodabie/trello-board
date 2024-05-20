@@ -1,35 +1,28 @@
-export interface TaskInterface {
+export type Task = {
   tasksGroupId: string;
   name: string;
   id: string;
   done: boolean;
-}
-export interface TasksGroupInterface {
+};
+export type TasksGroup = {
   name: string;
   id: string;
-  tasks: TaskInterface[];
+  tasks: Task[];
   workspaceId: string;
   doneTasks?: number;
-}
+};
 
-export interface WorkspaceInterface {
+export type Workspace = {
   name: string;
   id: string;
-  tasksGroups: TasksGroupInterface[];
-}
-export interface BoardInterface {
-  workspaces: WorkspaceInterface[];
+  tasksGroups: TasksGroup[];
+};
+export type Board = {
+  workspaces: Workspace[];
   activeWorkspace: string;
-  activeColumn: TasksGroupInterface | null;
+  activeColumn: TasksGroup | null;
   activeItem: string;
-  activeTask: TaskInterface | null;
-}
+  activeTask: Task | null;
+};
 
-export interface DndElementInterface
-  extends Partial<TaskInterface>,
-    Partial<TasksGroupInterface> {}
-
-export interface DnDElement {
-  element: DndElementInterface;
-  type: string;
-}
+export type DndElement = Partial<Task> & Partial<TasksGroup>;

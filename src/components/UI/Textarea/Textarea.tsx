@@ -3,7 +3,7 @@ import React, { useState, ChangeEvent } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextareaWrapper } from '.';
 
-export interface TextareaProps {
+export type TextareaProps = {
   placeholder: string;
   name?: string;
   dataTestid?: string;
@@ -11,7 +11,7 @@ export interface TextareaProps {
   ariaLabel: string;
   defaultValue?: string | number;
   onBlur?: (textareaValue?: string) => void;
-}
+};
 
 export const Textarea: React.FC<
   TextareaProps & {

@@ -2,13 +2,13 @@ import { screen } from '@testing-library/react';
 import { BoardView } from './BoardView';
 import { render } from '../../test-utils';
 import userEvent from '@testing-library/user-event';
-import { BoardInterface } from '../../store/types';
+import { Board } from '../../store/types';
 import { CustomRouter } from '../../router/CustomRouter';
 
 describe('BoardView', () => {
   test('1# BoardView renders correctly with props in title read mode', async () => {
     const prevState: {
-      preloadedState: { board: BoardInterface };
+      preloadedState: { board: Board };
     } = {
       preloadedState: {
         board: {

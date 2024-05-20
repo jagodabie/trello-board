@@ -1,4 +1,4 @@
-export interface ButtonProps {
+export type ButtonProps = {
   onClick?: () => void;
   iconComponent?: JSX.Element;
   text: string;
@@ -7,7 +7,8 @@ export interface ButtonProps {
   $ariaLabel?: string;
   ariaLabel?: string;
   dataTestid?: string;
-}
+};
+
 export type StyledButtonProps = Omit<ButtonProps, 'buttonType'> & {
   className?: 'primary' | '';
 };

@@ -1,20 +1,15 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import {
-  BoardInterface,
-  TaskInterface,
-  TasksGroupInterface,
-  WorkspaceInterface,
-} from '../../types';
+import { Board, Task, TasksGroup, Workspace } from '../../types';
 
 export const createWorkspace = (
-  state: BoardInterface,
-  action: PayloadAction<WorkspaceInterface>
+  state: Board,
+  action: PayloadAction<Workspace>
 ) => {
   state.workspaces = [...state.workspaces, action.payload];
 };
 
 export const updateWorkspaceName = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<string>
 ) => {
   const workspaceFound = state.workspaces.find(
@@ -35,21 +30,21 @@ export const updateWorkspaceName = (
 };
 
 export const setActiveColumn = (
-  state: BoardInterface,
-  action: PayloadAction<TasksGroupInterface | null>
+  state: Board,
+  action: PayloadAction<TasksGroupView | null>
 ) => {
   state.activeColumn = action.payload || null;
 };
 
 export const setActiveTask = (
-  state: BoardInterface,
-  action: PayloadAction<TaskInterface | null>
+  state: Board,
+  action: PayloadAction<Task | null>
 ) => {
   state.activeTask = action.payload;
 };
 
 export const deleteWorkspace = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<string>
 ) => {
   state.workspaces = state.workspaces.filter(
@@ -58,7 +53,7 @@ export const deleteWorkspace = (
 };
 
 export const setActiveWorkspace = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<string>
 ) => {
   state.activeWorkspace = action.payload;

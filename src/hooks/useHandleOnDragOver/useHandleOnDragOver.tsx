@@ -8,9 +8,9 @@ import {
 import { useAppDispatch } from '../useAppDispatch';
 import { setTasks, setTasksGroupOrder } from '../../store/slices/actions';
 import { changedElementsOrder, getTaskPosition } from '../../utils';
-import { TasksGroupInterface } from '../../store/types';
+import { TasksGroup } from '../../store/types';
 
-export const useHandleOnDragOver = (tasksGroups: TasksGroupInterface[]) => {
+export const useHandleOnDragOver = (tasksGroups: TasksGroup[]) => {
   const dispatch = useAppDispatch();
   return {
     handleOnDragOver: (event: DragOverEvent) => {

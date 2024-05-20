@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
 import { useUpdateTaskProperty } from '../../hooks/useUpdateTaskProperty/useUpdateTaskProperty';
 import { setActiveTask, setTasks } from '../../store/slices/actions';
-import { TaskInterface, TasksGroupInterface } from '../../store/types';
+import { Task, TasksGroup } from '../../store/types';
 import { ReadModeElement } from '../UI/ReadModeElement/ReadModeElement';
 import { Textarea } from '../UI/Textarea/Textarea';
 
@@ -9,8 +9,8 @@ export const Task = ({
   task,
   tasksGroup,
 }: {
-  task: TaskInterface;
-  tasksGroup: TasksGroupInterface;
+  task: Task;
+  tasksGroup: TasksGroup;
 }) => {
   const { name, id } = task;
   const board = useAppSelector((state) => state.board);

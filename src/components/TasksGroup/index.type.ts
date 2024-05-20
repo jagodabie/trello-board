@@ -1,6 +1,6 @@
-import { TasksGroupInterface } from '../../store/types';
+import { TasksGroup } from '../../store/types';
 
-export interface TasksGroupProps {
-  tasksGroup: TasksGroupInterface;
+export type TasksGroupProps = {
+  tasksGroup: TasksGroup;
   id?: string;
-}
+};

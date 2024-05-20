@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react';
 
-import { TasksGroup } from './TasksGroup';
+import { TasksGroupView } from './TasksGroup';
 import user from '@testing-library/user-event';
 import { store } from '../../store/store';
 import { render } from '../../test-utils';
-import { BoardInterface } from '../../store/types';
+import { Board } from '../../store/types';
 
 describe('TasksGroup', () => {
   const tasksGroup = {
@@ -16,7 +16,7 @@ describe('TasksGroup', () => {
   };
 
   it('1# renders the tasks group name', () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -25,7 +25,7 @@ describe('TasksGroup', () => {
   });
 
   it('2#  renders the tasks group section correctly', () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -45,7 +45,7 @@ describe('TasksGroup', () => {
   });
 
   it('3# when edit button is clicked, editMode is set', async () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -65,7 +65,7 @@ describe('TasksGroup', () => {
   });
 
   it('4# dispatches setActiveItem action when clicking on edit button', async () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -76,7 +76,7 @@ describe('TasksGroup', () => {
     expect(textareaElement).toBeInTheDocument();
   });
   it('5# does dispatch updateTasksGroupName action when inputValue is empty string', async () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -90,7 +90,7 @@ describe('TasksGroup', () => {
     expect(textareaElement).toBeInTheDocument();
   });
   it('6# dispatches updateTasksGroupName action when inputValue is not empty string', async () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -105,7 +105,7 @@ describe('TasksGroup', () => {
   });
   // TODO: investing why this test is failing
   it.skip('7# dispatches deleteWorkspaceTasksGroup action when clicking on delete button', async () => {
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: store.getState(),
     });
 
@@ -118,7 +118,7 @@ describe('TasksGroup', () => {
   //TODO: fix this test
   it.skip('8# Add task when Add task button is clicked', async () => {
     const prevState: {
-      preloadedState: { board: BoardInterface };
+      preloadedState: { board: Board };
     } = {
       preloadedState: {
         board: {
@@ -153,7 +153,7 @@ describe('TasksGroup', () => {
     const [workspace] = prevState.preloadedState.board.workspaces;
     const [tasksGroup] = workspace.tasksGroups;
 
-    render(<TasksGroup tasksGroup={tasksGroup} />, {
+    render(<TasksGroupView tasksGroup={tasksGroup} />, {
       preloadedState: prevState.preloadedState,
     });
 

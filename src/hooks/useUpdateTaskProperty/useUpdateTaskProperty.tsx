@@ -3,13 +3,10 @@ import {
   setActiveTask,
   setTasks,
 } from '../../store/slices/actions';
-import { TaskInterface, TasksGroupInterface } from '../../store/types';
+import { Task, TasksGroup } from '../../store/types';
 import { useAppDispatch } from '../useAppDispatch';
 
-export const useUpdateTaskProperty = (
-  task: TaskInterface,
-  tasksGroup: TasksGroupInterface
-) => {
+export const useUpdateTaskProperty = (task: Task, tasksGroup: TasksGroup) => {
   const dispatch = useAppDispatch();
 
   const updateTaskProperty = (key: string, value: string | boolean) => {
@@ -21,7 +18,7 @@ export const useUpdateTaskProperty = (
 
       dispatch(
         setTasks({
-          tasks: tasksGroup.tasks.map((taskItem: TaskInterface) =>
+          tasks: tasksGroup.tasks.map((taskItem: Task) =>
             taskItem.id === updatedTask.id ? updatedTask : taskItem
           ),
           tasksGroupId: tasksGroup.id,

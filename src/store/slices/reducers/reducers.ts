@@ -1,21 +1,16 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import {
-  BoardInterface,
-  TaskInterface,
-  TasksGroupInterface,
-  WorkspaceInterface,
-} from '../../types';
+import { Board, Task, TasksGroup, Workspace } from '../../types';
 
 export const setWorkspacesOrder = (
-  state: BoardInterface,
-  action: PayloadAction<WorkspaceInterface[]>
+  state: Board,
+  action: PayloadAction<Workspace[]>
 ) => {
   state.workspaces = action.payload;
 };
 
 export const setTasksGroupOrder = (
-  state: BoardInterface,
-  action: PayloadAction<TasksGroupInterface[]>
+  state: Board,
+  action: PayloadAction<TasksGroupView[]>
 ) => {
   state.workspaces = state.workspaces.map((workspace) => {
     return workspace.id === state.activeWorkspace
@@ -25,9 +20,9 @@ export const setTasksGroupOrder = (
 };
 
 export const setTasks = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<{
-    tasks: TaskInterface[];
+    tasks: Task[];
     tasksGroupId: string;
   }>
 ) => {
@@ -54,7 +49,7 @@ export const setTasks = (
         ),
       ];
 
-      const updatedWorkspace: WorkspaceInterface = {
+      const updatedWorkspace: Workspace = {
         ...foundWorkspace,
         tasksGroups: updatedTasksGroups,
       };
@@ -68,8 +63,8 @@ export const setTasks = (
 };
 
 export const createWorkspaceTasksGroup = (
-  state: BoardInterface,
-  action: PayloadAction<TasksGroupInterface>
+  state: Board,
+  action: PayloadAction<TasksGroupView>
 ) => {
   const workspaceFound = state.workspaces.find(
     (workspace) => workspace.id === state.activeWorkspace
@@ -88,7 +83,7 @@ export const createWorkspaceTasksGroup = (
 };
 
 export const updateTasksGroupName = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<string>
 ) => {
   const workspaceFound = state.workspaces.find(
@@ -124,7 +119,7 @@ export const updateTasksGroupName = (
 };
 
 export const deleteWorkspaceTasksGroup = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<string>
 ) => {
   const workspaceFound = state.workspaces.find(
@@ -142,15 +137,12 @@ export const deleteWorkspaceTasksGroup = (
   }
 };
 
-export const setActiveItem = (
-  state: BoardInterface,
-  action: PayloadAction<string>
-) => {
+export const setActiveItem = (state: Board, action: PayloadAction<string>) => {
   state.activeItem = action.payload;
 };
 export const saveEditedWorkspace = (
-  state: BoardInterface,
-  action: PayloadAction<WorkspaceInterface>
+  state: Board,
+  action: PayloadAction<Workspace>
 ) => {
   state.workspaces = state.workspaces.map((workspace) => {
     return workspace.id === action.payload.id ? action.payload : workspace;
@@ -158,7 +150,7 @@ export const saveEditedWorkspace = (
 };
 
 export const setDoneTasks = (
-  state: BoardInterface,
+  state: Board,
   action: PayloadAction<{ groupId: string }>
 ) => {
   const workspaceFound = state.workspaces.find(

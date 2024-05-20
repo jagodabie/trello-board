@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { BoardInterface } from '../types';
+import { Board } from '../types';
 import * as reducers from './reducers/reducers';
 import * as workspaceReducers from './reducers/workspaceReducers';
 
-export const initialState: BoardInterface = {
+export const initialState: Board = {
   workspaces: [
     {
       id: '1',
