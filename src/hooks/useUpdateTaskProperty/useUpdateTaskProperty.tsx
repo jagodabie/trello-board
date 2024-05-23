@@ -3,11 +3,11 @@ import {
   setActiveTask,
   setTasks,
 } from '../../store/slices/actions';
-import { Task, TasksGroupType } from '../../store/types';
+import { TaskType, TasksGroupType } from '../../store/types';
 import { useAppDispatch } from '../useAppDispatch';
 
 export const useUpdateTaskProperty = (
-  task: Task,
+  task: TaskType,
   tasksGroup: TasksGroupType
 ) => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export const useUpdateTaskProperty = (
 
       dispatch(
         setTasks({
-          tasks: tasksGroup.tasks.map((taskItem: Task) =>
+          tasks: tasksGroup.tasks.map((taskItem: TaskType) =>
             taskItem.id === updatedTask.id ? updatedTask : taskItem
           ),
           tasksGroupId: tasksGroup.id,
