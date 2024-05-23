@@ -18,7 +18,7 @@ import { withDnDElement } from '../../hoc/withDnDElement';
 
 const DraggableTask = withDnDElement(Task);
 
-export const TasksGroupView = ({ tasksGroup }: TasksGroupProps) => {
+export const TasksGroup = ({ tasksGroup }: TasksGroupProps) => {
   const [height, setHeight] = useState(0);
   const dispatch = useAppDispatch();
   const { id, name, tasks } = tasksGroup;

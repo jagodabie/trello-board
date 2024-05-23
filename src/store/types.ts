@@ -1,13 +1,13 @@
-export type Task = {
+export type TaskType = {
   tasksGroupId: string;
   name: string;
   id: string;
   done: boolean;
 };
-export type TasksGroup = {
+export type TasksGroupType = {
   name: string;
   id: string;
-  tasks: Task[];
+  tasks: TaskType[];
   workspaceId: string;
   doneTasks?: number;
 };
@@ -15,14 +15,14 @@ export type TasksGroup = {
 export type Workspace = {
   name: string;
   id: string;
-  tasksGroups: TasksGroup[];
+  tasksGroups: TasksGroupType[];
 };
 export type Board = {
   workspaces: Workspace[];
   activeWorkspace: string;
-  activeColumn: TasksGroup | null;
+  activeColumn: TasksGroupType | null;
   activeItem: string;
-  activeTask: Task | null;
+  activeTask: TaskType | null;
 };
 
-export type DndElement = Partial<Task> & Partial<TasksGroup>;
+export type DndElement = Partial<TaskType> & Partial<TasksGroupType>;

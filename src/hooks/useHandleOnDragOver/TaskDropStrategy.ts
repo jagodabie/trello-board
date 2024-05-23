@@ -1,19 +1,19 @@
-import { DndElement, Task, TasksGroup } from '../../store/types';
+import { DndElement, TaskType, TasksGroupType } from '../../store/types';
 import { changedElementsOrder, getTaskPosition } from '../../utils';
 
 interface TaskDropStrategy {
   handleTaskDrop(
     activeElement: DndElement,
     overElement: DndElement,
-    tasksGroups?: TasksGroup[]
+    tasksGroups?: TasksGroupType[]
   ): {
     updatedActiveTasksList?: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
     updatedOverTaskList?: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
   };
 }
@@ -36,7 +36,7 @@ export class DropTaskContext {
   public handleTaskDrop(
     activeElement: DndElement,
     overElement: DndElement,
-    tasksGroups?: TasksGroup[]
+    tasksGroups?: TasksGroupType[]
   ) {
     return this.taskDropStrategy.handleTaskDrop(
       activeElement,
@@ -52,23 +52,24 @@ export class TaskDropOntoAnotherTaskDropInDifferentGroupStrategy
   handleTaskDrop(
     activeElement: DndElement,
     overElement: DndElement,
-    tasksGroups: TasksGroup[]
+    tasksGroups: TasksGroupType[]
   ): {
     updatedActiveTasksList: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
     updatedOverTaskList: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
   } {
     const tasksOver = tasksGroups.find(
-      (group: TasksGroup) => group.id === overElement.tasksGroupId
+      (group: TasksGroupType) => group.id === overElement.tasksGroupId
     )?.tasks;
 
     const indexOfOverTasks =
-      tasksOver?.findIndex((task: Task) => task.id === overElement.id) || '';
+      tasksOver?.findIndex((task: TaskType) => task.id === overElement.id) ||
+      '';
     return {
       updatedActiveTasksList: {
         tasksGroupId: activeElement?.tasksGroupId!,
@@ -87,7 +88,7 @@ export class TaskDropOntoAnotherTaskDropInDifferentGroupStrategy
               tasksGroupId: overElement?.tasksGroupId,
             },
             ...(tasksOver?.slice(Number(indexOfOverTasks)) || []),
-          ] as Task[]) || [],
+          ] as TaskType[]) || [],
       },
     };
   }
@@ -99,16 +100,16 @@ export class TaskDropOntoAnotherTaskDropInSameGroupStrategy
   handleTaskDrop(
     activeElement: DndElement,
     overElement: DndElement,
-    tasksGroups: TasksGroup[]
+    tasksGroups: TasksGroupType[]
   ): {
     updatedActiveTasksList: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
   } {
     const tasksListActive =
       tasksGroups.find(
-        (group: TasksGroup) => group.id === activeElement.tasksGroupId
+        (group: TasksGroupType) => group.id === activeElement.tasksGroupId
       )?.tasks || [];
 
     return {
@@ -128,27 +129,28 @@ export class TaskDropOntoEmptyGroupStrategy implements TaskDropStrategy {
   handleTaskDrop(
     activeElement: DndElement,
     overElement: DndElement,
-    tasksGroups: TasksGroup[]
+    tasksGroups: TasksGroupType[]
   ): {
     updatedActiveTasksList: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
     updatedOverTaskList: {
       tasksGroupId: string;
-      tasks: Task[];
+      tasks: TaskType[];
     };
   } {
     const tasksActive = tasksGroups.find(
-      (group: TasksGroup) => group.id === activeElement?.tasksGroupId
+      (group: TasksGroupType) => group.id === activeElement?.tasksGroupId
     )?.tasks;
 
     return {
       updatedActiveTasksList: {
         tasksGroupId: activeElement?.tasksGroupId!,
         tasks:
-          tasksActive?.filter((task: Task) => task.id !== activeElement?.id) ||
-          [],
+          tasksActive?.filter(
+            (task: TaskType) => task.id !== activeElement?.id
+          ) || [],
       },
       updatedOverTaskList: {
         tasksGroupId: overElement?.id!,
@@ -156,7 +158,7 @@ export class TaskDropOntoEmptyGroupStrategy implements TaskDropStrategy {
           {
             ...activeElement,
             tasksGroupId: overElement?.id,
-          } as Task,
+          } as TaskType,
         ],
       },
     };

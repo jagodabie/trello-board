@@ -3,10 +3,13 @@ import {
   setActiveTask,
   setTasks,
 } from '../../store/slices/actions';
-import { Task, TasksGroup } from '../../store/types';
+import { Task, TasksGroupType } from '../../store/types';
 import { useAppDispatch } from '../useAppDispatch';
 
-export const useUpdateTaskProperty = (task: Task, tasksGroup: TasksGroup) => {
+export const useUpdateTaskProperty = (
+  task: Task,
+  tasksGroup: TasksGroupType
+) => {
   const dispatch = useAppDispatch();
 
   const updateTaskProperty = (key: string, value: string | boolean) => {

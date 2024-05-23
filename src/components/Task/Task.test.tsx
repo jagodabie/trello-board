@@ -1,4 +1,4 @@
-import { logRoles, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import user from '@testing-library/user-event';
 import { store } from '../../store/store';

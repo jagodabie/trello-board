@@ -1,6 +1,6 @@
-import { TasksGroup } from '../../store/types';
+import { TasksGroupType } from '../../store/types';
 
 export type TasksGroupProps = {
-  tasksGroup: TasksGroup;
+  tasksGroup: TasksGroupType;
   id?: string;
 };

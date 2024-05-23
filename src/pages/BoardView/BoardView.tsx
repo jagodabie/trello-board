@@ -22,11 +22,10 @@ import {
   setActiveWorkspace,
   updateWorkspaceName,
 } from '../../store/slices/actions';
-import { TasksGroup } from '../../components/TasksGroup/TasksGroup';
 import { useHandleDragEnd } from '../../hooks/useHandleDragEnd/useHandleDragEnd';
 import { SortableContext } from '@dnd-kit/sortable';
 import { withDnDElement } from '../../hoc/withDnDElement';
-import { TasksGroup } from '../../store/types';
+import { TasksGroupType } from '../../store/types';
 import { createPortal } from 'react-dom';
 import { Task } from '../../components/Task/Task';
 import { Button } from '../../components/UI/Button/Button';
@@ -36,6 +35,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { withRefTextarea } from '../../hoc/withRefsTextarea';
 import { useHandleOnDragOver } from '../../hooks/useHandleOnDragOver/useHandleOnDragOver';
+import { TasksGroup } from '../../components/TasksGroup/TasksGroup';
 
 const DraggableTasksGroup = withDnDElement(TasksGroup);
 const DraggableTask = withDnDElement(Task);
@@ -130,15 +130,17 @@ export const BoardView = () => {
           >
             <SortableContext items={activeWorkspace?.tasksGroups ?? []}>
               {activeWorkspace?.tasksGroups.length ? (
-                activeWorkspace?.tasksGroups.map((tasksGroup: TasksGroup) => (
-                  <DraggableTasksGroup
-                    type='tasksGroup'
-                    element={tasksGroup}
-                    tasksGroup={tasksGroup}
-                    id={tasksGroup.id}
-                    key={tasksGroup.id}
-                  />
-                ))
+                activeWorkspace?.tasksGroups.map(
+                  (tasksGroup: TasksGroupType) => (
+                    <DraggableTasksGroup
+                      type='tasksGroup'
+                      element={tasksGroup}
+                      tasksGroup={tasksGroup}
+                      id={tasksGroup.id}
+                      key={tasksGroup.id}
+                    />
+                  )
+                )
               ) : (
                 <p aria-label='No tasks groups'>No tasks groups</p>
               )}

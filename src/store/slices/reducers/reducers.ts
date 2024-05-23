@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Board, Task, TasksGroup, Workspace } from '../../types';
+import { Board, Task, TasksGroupType, Workspace } from '../../types';
 
 export const setWorkspacesOrder = (
   state: Board,
@@ -10,7 +10,7 @@ export const setWorkspacesOrder = (
 
 export const setTasksGroupOrder = (
   state: Board,
-  action: PayloadAction<TasksGroupView[]>
+  action: PayloadAction<TasksGroup[]>
 ) => {
   state.workspaces = state.workspaces.map((workspace) => {
     return workspace.id === state.activeWorkspace
@@ -64,7 +64,7 @@ export const setTasks = (
 
 export const createWorkspaceTasksGroup = (
   state: Board,
-  action: PayloadAction<TasksGroupView>
+  action: PayloadAction<TasksGroup>
 ) => {
   const workspaceFound = state.workspaces.find(
     (workspace) => workspace.id === state.activeWorkspace
