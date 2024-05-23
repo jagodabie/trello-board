@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Board, Task, TasksGroupType, Workspace } from '../../types';
+import { Board, TaskType, TasksGroupType, Workspace } from '../../types';
 
 export const createWorkspace = (
   state: Board,
@@ -31,14 +31,14 @@ export const updateWorkspaceName = (
 
 export const setActiveColumn = (
   state: Board,
-  action: PayloadAction<TasksGroup | null>
+  action: PayloadAction<TasksGroupType | null>
 ) => {
   state.activeColumn = action.payload || null;
 };
 
 export const setActiveTask = (
   state: Board,
-  action: PayloadAction<Task | null>
+  action: PayloadAction<TaskType | null>
 ) => {
   state.activeTask = action.payload;
 };
