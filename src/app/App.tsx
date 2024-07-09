@@ -8,6 +8,7 @@ import AppProviders from '../providers/AppProvider';
 import { CustomDrawer } from '../components/Drawer/Drawer';
 import { CustomRouter } from '../router/CustomRouter';
 import { HomePage } from '../pages/HomePage/HomePage';
+import { Data } from '../pages/TasksView/TasksView';
 
 const App = () => {
   return (
@@ -29,8 +30,13 @@ const App = () => {
               path: '/trello-board',
               component: <HomePage />,
             },
+            {
+              path: '/tasks',
+              component: <Data />,
+            },
           ]}
         />
+
         <AppMain>
           <CustomDrawer />
         </AppMain>
